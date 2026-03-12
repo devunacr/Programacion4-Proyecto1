@@ -1,0 +1,8 @@
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head><title>Dashboard Oferente</title></head>
+<body>
+<h2 th:text="'Bienvenido, ' + ${oferente}">Oferente</h2>
+<a th:href="@{/oferente/habilidades}">Mis habilidades</a> |
+<a th:href="@{/oferente/cv}">Mi CV</a>
+</body>
+</html>
