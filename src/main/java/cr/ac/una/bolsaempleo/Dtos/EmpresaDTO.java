@@ -1,22 +1,18 @@
-package cr.ac.una.bolsaempleo.model;
+package cr.ac.una.bolsaempleo.Dtos;
 
-public class Empresa {
+public class EmpresaDTO {
 
     String nombre;
     String direccion;
     String correo;
     String telefono;
     String descripcion;
-    String password;
 
-    public Empresa() { }
-
-    public Empresa(String nombre, String direccion, String correo, String telefono, String password, String descripcion) {
+    public EmpresaDTO(String nombre, String direccion, String correo, String telefono, String descripcion) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.correo = correo;
         this.telefono = telefono;
-        this.password = password;
         this.descripcion = descripcion;
     }
 
@@ -58,13 +54,5 @@ public class Empresa {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

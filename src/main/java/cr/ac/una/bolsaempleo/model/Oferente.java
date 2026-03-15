@@ -10,11 +10,12 @@ public class Oferente {
     String telefono;
     String correoPersonal;
     String residencia;
+    String password;
 
     public Oferente() {
     }
 
-    public Oferente(String id, String nombre, String apellidos, String correo, String nacionalidad, String telefono, String correoPersonal, String residencia) {
+    public Oferente(String id, String nombre, String apellidos, String correo, String nacionalidad, String telefono, String correoPersonal, String residencia, String password) {
         this.id = id;
         this.nombre = nombre;
         Apellidos = apellidos;
@@ -23,6 +24,7 @@ public class Oferente {
         this.telefono = telefono;
         this.correoPersonal = correoPersonal;
         this.residencia = residencia;
+        this.password = password;
     }
 
     public String getId() {
@@ -87,5 +89,13 @@ public class Oferente {
 
     public void setResidencia(String residencia) {
         this.residencia = residencia;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
