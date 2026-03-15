@@ -1,4 +1,4 @@
-package cr.ac.una.bolsaempleo.Dtos;
+package cr.ac.una.bolsaempleo.dtos;
 
 public class OferenteDTO {
 
