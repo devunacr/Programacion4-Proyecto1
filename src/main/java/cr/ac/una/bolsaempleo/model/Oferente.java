@@ -5,7 +5,6 @@ public class Oferente {
     String id;
     String nombre;
     String Apellidos;
-    String correo;
     String nacionalidad;
     String telefono;
     String correoPersonal;
@@ -15,11 +14,10 @@ public class Oferente {
     public Oferente() {
     }
 
-    public Oferente(String id, String nombre, String apellidos, String correo, String nacionalidad, String telefono, String correoPersonal, String residencia, String password) {
+    public Oferente(String id, String nombre, String apellidos, String nacionalidad, String telefono, String correoPersonal, String residencia, String password) {
         this.id = id;
         this.nombre = nombre;
         Apellidos = apellidos;
-        this.correo = correo;
         this.nacionalidad = nacionalidad;
         this.telefono = telefono;
         this.correoPersonal = correoPersonal;
@@ -27,9 +25,7 @@ public class Oferente {
         this.password = password;
     }
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
     public void setId(String id) {
         this.id = id;
@@ -49,14 +45,6 @@ public class Oferente {
 
     public void setApellidos(String apellidos) {
         Apellidos = apellidos;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
     }
 
     public String getNacionalidad() {
