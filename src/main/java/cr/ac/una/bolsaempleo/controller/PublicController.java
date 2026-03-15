@@ -11,7 +11,7 @@ public class PublicController {
     public String index(Model model) {
         // Aquí va la logica para traer los ultimos 5 puestos
         model.addAttribute("mensaje", "Bienvenido a la Bolsa de Empleo");
-        return "index";
+        return "Index";
     }
 
     @GetMapping("/login")
