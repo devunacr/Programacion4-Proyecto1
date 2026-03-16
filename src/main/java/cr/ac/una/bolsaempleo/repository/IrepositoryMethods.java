@@ -7,9 +7,10 @@ import java.util.Optional;
 
 public interface IrepositoryMethods<T> {
 
-    List<T> findAll();
-    List<T> findAllActive();
-    Optional<T> findByName(String nombre);
+    List<T> buscarATodos();
+    List<T> buscarActivo();
+    Optional<T> buscarPorNombre(String nombre);
+    Optional<T> buscarPorId(String id);
 
     T crearObjeto(T obj);
     T actualizarObjeto(T obj);

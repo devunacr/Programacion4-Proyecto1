@@ -2,6 +2,7 @@ package cr.ac.una.bolsaempleo.model;
 
 public class Empresa {
 
+    String id;
     String nombre;
     String direccion;
     String correo;
@@ -11,13 +12,23 @@ public class Empresa {
 
     public Empresa() { }
 
-    public Empresa(String nombre, String direccion, String correo, String telefono, String password, String descripcion) {
+
+    public Empresa(String id, String nombre, String direccion, String correo, String telefono, String descripcion, String password) {
+        this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
         this.correo = correo;
         this.telefono = telefono;
-        this.password = password;
         this.descripcion = descripcion;
+        this.password = password;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNombre() {

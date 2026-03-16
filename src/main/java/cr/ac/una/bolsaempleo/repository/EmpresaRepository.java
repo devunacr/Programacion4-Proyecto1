@@ -8,62 +8,87 @@ import java.util.Optional;
 
 public class EmpresaRepository implements IrepositoryMethods<Empresa> {
 
-    private List<Empresa> empresas = new ArrayList<>();
+    private List<Empresa> listaEmpresas = new ArrayList<>();
 
     @Override
-    public List<Empresa> findAll() {
-        return empresas;
+    public List<Empresa> buscarATodos() {
+        return listaEmpresas;
     }
 
     @Override
-    public List<Empresa> findAllActive() {
-        List<Empresa> activas = new ArrayList<>();
+    public List<Empresa> buscarActivo() {
 
-        for (Empresa e : empresas) {
-            // Aquí podrías tener un atributo activo en Empresa
-            // if(e.isActivo())
-            activas.add(e);
+        List<Empresa> empresasActivas = new ArrayList<>();
+
+        for (Empresa empresa : listaEmpresas) {
+
+            //************************************************* validar si la empresa está activa
+
+            empresasActivas.add(empresa);
         }
 
-        return activas;
+        return empresasActivas;
     }
 
     @Override
-    public Optional<Empresa> findByName(String nombre) {
+    public Optional<Empresa> buscarPorNombre(String nombre) {
 
-        for (Empresa e : empresas) {
-            if (e.getNombre().equalsIgnoreCase(nombre)) {
-                return Optional.of(e);
+        for (Empresa empresa : listaEmpresas) {
+
+            if (empresa.getNombre().equalsIgnoreCase(nombre)) {
+                return Optional.of(empresa);
             }
+
         }
 
         return Optional.empty();
     }
 
     @Override
-    public Empresa crearObjeto(Empresa obj) {
-        empresas.add(obj);
-        return obj;
+    public Optional<Empresa> buscarPorId(String id) {
+
+        for (Empresa empresa : listaEmpresas) {
+
+            if (empresa.getId().equals(id)) {
+                return Optional.of(empresa);
+            }
+
+        }
+
+        return Optional.empty();
     }
 
     @Override
-    public Empresa actualizarObjeto(Empresa obj) {
+    public Empresa crearObjeto(Empresa empresaNueva) {
 
-        for (int i = 0; i < empresas.size(); i++) {
+        listaEmpresas.add(empresaNueva);
+        return empresaNueva;
 
-            if (empresas.get(i).getNombre().equalsIgnoreCase(obj.getNombre())) {
-                empresas.set(i, obj);
-                return obj;
+    }
+
+    @Override
+    public Empresa actualizarObjeto(Empresa empresaActualizada) {
+
+        for (int indice = 0; indice < listaEmpresas.size(); indice++) {
+
+            Empresa empresaActual = listaEmpresas.get(indice);
+
+            if (empresaActual.getId().equals(empresaActualizada.getId())) {
+
+                listaEmpresas.set(indice, empresaActualizada);
+                return empresaActualizada;
+
             }
+
         }
 
         return null;
     }
 
     @Override
-    public void eliminarObjeto(String nombre) {
+    public void eliminarObjeto(String id) {
 
-        empresas.removeIf(e -> e.getNombre().equalsIgnoreCase(nombre));
+        listaEmpresas.removeIf(empresa -> empresa.getId().equals(id));
 
     }
 }
