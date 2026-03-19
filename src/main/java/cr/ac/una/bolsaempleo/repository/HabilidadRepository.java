@@ -9,14 +9,12 @@ import java.util.Optional;
 
 public class HabilidadRepository implements IrepositoryMethods<Habilidad>{
 
-    @Override
-    public List<Habilidad> buscarATodos() {
-        return List.of();
-    }
+    private List<Habilidad> listaHabilidades = new ArrayList<>();
 
     @Override
-    public List<Habilidad> buscarActivo() {
-        return List.of();
+    public List<Habilidad> buscarATodos() {
+
+        return listaHabilidades;
     }
 
     @Override

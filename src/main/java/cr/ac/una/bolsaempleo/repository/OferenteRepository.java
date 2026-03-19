@@ -16,20 +16,6 @@ public class OferenteRepository implements IrepositoryMethods<Oferente> {
     }
 
     @Override
-    public List<Oferente> buscarActivo() {
-
-        List<Oferente> oferentesActivos = new ArrayList<>();
-
-        for (Oferente oferente : listaOferentes) {
-            // ************************************************ validarlo si el oferente está activo
-            oferentesActivos.add(oferente);
-        }
-
-        return oferentesActivos;
-    }
-
-
-    @Override
     public Optional<Oferente> buscarPorNombre(String nombre) {
 
         for (Oferente oferente : listaOferentes) {

@@ -6,7 +6,6 @@ import java.util.Optional;
 public interface IrepositoryMethods<T> {
 
     List<T> buscarATodos();
-    List<T> buscarActivo();
     Optional<T> buscarPorNombre(String nombre);
     Optional<T> buscarPorId(String id);
 

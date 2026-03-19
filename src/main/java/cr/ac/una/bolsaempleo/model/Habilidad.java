@@ -2,16 +2,16 @@ package cr.ac.una.bolsaempleo.model;
 
 public class Habilidad {
 
-    boolean habilidad;
+    boolean habilidadActiva;
 
     public Habilidad() {
     }
 
     public boolean isHabilidad() {
-        return habilidad;
+        return habilidadActiva;
     }
 
-    public void setHabilidad(boolean habilidad) {
-        this.habilidad = habilidad;
+    public void setHabilidad(boolean habilidadAct) {
+        this.habilidadActiva = habilidadAct;
     }
 }
