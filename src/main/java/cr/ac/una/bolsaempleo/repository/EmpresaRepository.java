@@ -16,21 +16,6 @@ public class EmpresaRepository implements IrepositoryMethods<Empresa> {
     }
 
     @Override
-    public List<Empresa> buscarActivo() {
-
-        List<Empresa> empresasActivas = new ArrayList<>();
-
-        for (Empresa empresa : listaEmpresas) {
-
-            //************************************************* validar si la empresa está activa
-
-            empresasActivas.add(empresa);
-        }
-
-        return empresasActivas;
-    }
-
-    @Override
     public Optional<Empresa> buscarPorNombre(String nombre) {
 
         for (Empresa empresa : listaEmpresas) {

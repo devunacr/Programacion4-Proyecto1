@@ -2,16 +2,30 @@ package cr.ac.una.bolsaempleo.model;
 
 public class Habilidad {
 
-    boolean habilidad;
+    private String id;
+    private String nombre;
 
     public Habilidad() {
     }
 
-    public boolean isHabilidad() {
-        return habilidad;
+    public Habilidad(String id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
     }
 
-    public void setHabilidad(boolean habilidad) {
-        this.habilidad = habilidad;
+    public String getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }
