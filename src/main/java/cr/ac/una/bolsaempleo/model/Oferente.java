@@ -4,7 +4,7 @@ public class Oferente {
 
     String id;
     String nombre;
-    String Apellidos;
+    String apellidos;
     String nacionalidad;
     String telefono;
     String correoPersonal;
@@ -17,7 +17,7 @@ public class Oferente {
     public Oferente(String id, String nombre, String apellidos, String nacionalidad, String telefono, String correoPersonal, String residencia, String password) {
         this.id = id;
         this.nombre = nombre;
-        Apellidos = apellidos;
+        this.apellidos = apellidos;
         this.nacionalidad = nacionalidad;
         this.telefono = telefono;
         this.correoPersonal = correoPersonal;
@@ -40,12 +40,10 @@ public class Oferente {
     }
 
     public String getApellidos() {
-        return Apellidos;
+        return apellidos;
     }
 
-    public void setApellidos(String apellidos) {
-        Apellidos = apellidos;
-    }
+    public void setApellidos(String apellidos) {this.apellidos = apellidos; }
 
     public String getNacionalidad() {
         return nacionalidad;
