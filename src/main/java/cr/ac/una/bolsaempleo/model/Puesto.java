@@ -1,50 +1,78 @@
 package cr.ac.una.bolsaempleo.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Puesto {
-    String descripcionPuesto; //se usa para el nombre del puesto
-    String categoria; //para saber si es junior, mid o senior
-    double salario;
-    String publicacion; // privada o publica, se debe gestionar en el front
+
+    private String id;
+    private String salario;
+    private String titulo;
+    private String descripcion;
+
+    // Relación del pueto con la habilidad
+    private List<Habilidad> habilidades = new ArrayList<>();
+
 
     public Puesto() {
     }
 
-    public Puesto(String descripcionPuesto, String categoria, double salario, String publicacion) {
-        this.descripcionPuesto = descripcionPuesto;
-        this.categoria = categoria;
+    public Puesto(String id, String salario, String titulo, String descripcion) {
+        this.id = id;
         this.salario = salario;
-        this.publicacion = publicacion;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
     }
 
-    public String getDescripcionPuesto() {
-        return descripcionPuesto;
+    // Métodos de relación **********************************************************************
+
+    public void agregarHabilidad(Habilidad habilidad) {
+        habilidades.add(habilidad);
     }
 
-    public void setDescripcionPuesto(String descripcionPuesto) {
-        this.descripcionPuesto = descripcionPuesto;
+    public void eliminarHabilidad(Habilidad habilidad) {
+        habilidades.remove(habilidad);
     }
 
-    public String getCategoria() {
-        return categoria;
+    public List<Habilidad> getHabilidades() {
+        return habilidades;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setHabilidades(List<Habilidad> habilidades) {
+        this.habilidades = habilidades;
+    }
+     //**********************************************************************
+
+
+    public String getId() {
+        return id;
     }
 
-    public double getSalario() {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getSalario() {
         return salario;
     }
 
-    public void setSalario(double salario) {
+    public void setSalario(String salario) {
         this.salario = salario;
     }
 
-    public String getPublicacion() {
-        return publicacion;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setPublicacion(String publicacion) {
-        this.publicacion = publicacion;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }
