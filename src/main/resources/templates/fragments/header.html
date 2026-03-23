@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header" class="main-header">
+    <div class="nav-container">
+        <a th:href="@{/}" class="brand">
+            <img th:src="@{/images/logo.png}" alt="Logo" style="width:35px; height:auto;">
+
+            <span th:text="${sessionActive != null and sessionActive} ? ${nombreEmpresa} : 'Bolsa de Empleo'">Bolsa de Empleo</span>
+
+            <span th:if="${sessionActive != null and sessionActive}" class="badge-panel">Panel de Empresa</span>
+        </a>
+
+        <nav class="header-actions">
+            <a th:href="@{/}" style="text-decoration:none; color:var(--text-main); font-weight:600;">Inicio</a>
+
+            <div th:if="${sessionActive != null and sessionActive}" style="display:flex; gap:20px; align-items:center;">
+                <a th:href="@{/empresa/mis-puestos}" class="btn-black-full" style="padding: 8px 15px; font-size: 0.85rem; width: auto; text-decoration: none; background: #f1f5f9; color: black; border: 1px solid #ddd;">Dashboard</a>
+                <a th:href="@{/logout}" style="text-decoration:none; color:#64748b; font-weight:600; font-size:0.9rem;">Cerrar Sesión</a>
+            </div>
+
+            <a th:unless="${sessionActive != null and sessionActive}" th:href="@{/login}" class="btn-black-full" style="padding: 10px 20px; font-size: 0.9rem; width: auto; text-decoration: none;">
+                Iniciar Sesión
+            </a>
+        </nav>
+    </div>
+</header>
+</body>
+</html>

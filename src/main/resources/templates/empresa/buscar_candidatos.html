@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bolsa de empleo | Buscar Candidatos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #f4f8fb;">
+
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main style="max-width: 1200px; margin: 40px auto; padding: 0 20px; display: flex; gap: 30px;">
+
+    <aside class="filter-sidebar">
+        <h2 style="font-size: 1.2rem; margin-bottom: 20px;">Filtrar Candidatos</h2>
+        <form action="#">
+            <div class="filter-group">
+                <label>Habilidad Especializada</label>
+                <select class="filter-select">
+                    <option>Todas las habilidades</option>
+                    <option>Java</option>
+                    <option>Spring Boot</option>
+                    <option>React</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Ubicación</label>
+                <input type="text" class="filter-input" placeholder="Ej: San José">
+            </div>
+            <button class="btn-filter-search">Buscar Candidatos</button>
+        </form>
+    </aside>
+
+    <section style="flex: 1;">
+        <div th:each="candidato : ${candidatos}" class="job-card-wide" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <div style="width: 60px; height: 60px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #64748b;"
+                     th:text="${#strings.substring(candidato.nombre,0,1) + #strings.substring(candidato.apellidos,0,1)}">
+                    JD
+                </div>
+                <div>
+                    <h3 th:text="${candidato.nombre + ' ' + candidato.apellidos}" style="margin: 0; font-size: 1.3rem;"></h3>
+                    <p th:text="${candidato.residencia}" style="margin: 5px 0; color: #64748b;"></p>
+                </div>
+            </div>
+            <button class="btn-black-full" style="width: auto; padding: 10px 20px;">Ver Perfil</button>
+        </div>
+    </section>
+</main>
+</body>
+</html>

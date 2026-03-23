@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Empresa</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div class="auth-container">
+    <div class="auth-card-wide">
+        <h2>Registrar Empresa</h2>
+        <p style="margin-bottom: 30px; color: #64748b;">Completa el formulario para registrar tu empresa</p>
+
+        <form th:action="@{/registro/empresa}" th:object="${empresa}" method="post" class="grid-form">
+            <div class="form-group">
+                <label>Nombre de la Empresa *</label>
+                <input type="text" th:field="*{nombre}" required>
+            </div>
+            <div class="form-group">
+                <label>Localización *</label>
+                <input type="text" th:field="*{localizacion}" required>
+            </div>
+            <div class="form-group">
+                <label>Correo Electrónico *</label>
+                <input type="email" th:field="*{correo}" required>
+            </div>
+            <div class="form-group">
+                <label>Teléfono *</label>
+                <input type="text" th:field="*{telefono}" required>
+            </div>
+            <div class="form-group full-width">
+                <label>Contraseña *</label>
+                <input type="password" th:field="*{password}" required>
+            </div>
+            <div class="full-width">
+                <button type="submit" class="btn-black-full">Registrar Empresa</button>
+            </div>
+        </form>
+
+        <p style="margin-top: 25px; text-align: center;">¿Ya tienes cuenta? <a th:href="@{/login(rol='empresa')}">Inicia sesión aquí</a></p>
+
+        <div class="info-note">
+            <p><strong>Nota:</strong> Tu registro será revisado por un administrador antes de ser aprobado. Recibirás una notificación por correo.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html><!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Empresa</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div class="auth-container">
+    <div class="auth-card-wide">
+        <h2>Registrar Empresa</h2>
+        <p style="margin-bottom: 30px; color: #64748b;">Completa el formulario para registrar tu empresa</p>
+
+        <form th:action="@{/registro/empresa}" th:object="${empresa}" method="post" class="grid-form">
+            <div class="form-group">
+                <label>Nombre de la Empresa *</label>
+                <input type="text" th:field="*{nombre}" required>
+            </div>
+            <div class="form-group">
+                <label>Localización *</label>
+                <input type="text" th:field="*{localizacion}" required>
+            </div>
+            <div class="form-group">
+                <label>Correo Electrónico *</label>
+                <input type="email" th:field="*{correo}" required>
+            </div>
+            <div class="form-group">
+                <label>Teléfono *</label>
+                <input type="text" th:field="*{telefono}" required>
+            </div>
+            <div class="form-group full-width">
+                <label>Contraseña *</label>
+                <input type="password" th:field="*{password}" required>
+            </div>
+            <div class="full-width">
+                <button type="submit" class="btn-black-full">Registrar Empresa</button>
+            </div>
+        </form>
+
+        <p style="margin-top: 25px; text-align: center;">¿Ya tienes cuenta? <a th:href="@{/login(rol='empresa')}">Inicia sesión aquí</a></p>
+
+        <div class="info-note">
+            <p><strong>Nota:</strong> Tu registro será revisado por un administrador antes de ser aprobado. Recibirás una notificación por correo.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

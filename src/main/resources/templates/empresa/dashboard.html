@@ -1,8 +1,72 @@
+<!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head><title>Dashboard Empresa</title></head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Panel de Empresa</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
 <body>
-<h2 th:text="'Bienvenido, ' + ${empresa}">Empresa</h2>
-<a th:href="@{/empresa/puestos}">Ver mis puestos</a> |
-<a th:href="@{/empresa/publicar}">Publicar nuevo puesto</a>
+
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+    <div class="role-tabs" style="width: fit-content; margin-bottom: 40px;">
+        <a th:href="@{/empresa/puestos}" class="active">Mis Puestos</a>
+        <a th:href="@{/empresa/buscar_candidatos}">Buscar Candidatos</a>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px;">
+        <div>
+            <h1 style="margin: 0; font-size: 2.2rem; font-weight: 800; color: #001f3f;">Puestos Publicados</h1>
+            <p style="color: #64748b; margin-top: 5px;">Gestiona tus vacantes disponibles y candidatos.</p>
+        </div>
+        <a th:href="@{/empresa/crear_puesto}" class="btn-black-full" style="width: auto; padding: 12px 25px; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+            <span>+</span> Publicar Puesto
+        </a>
+    </div>
+
+    <div th:each="puesto : ${puestos}" class="job-card-wide" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px;">
+        <div style="flex: 1;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                <h3 th:text="${puesto.titulo}" style="margin: 0; font-size: 1.4rem; font-weight: 700;"></h3>
+
+                <span th:if="${puesto.publico}" class="skill-tag-index" style="background: #050a14; color: white; border: none; padding: 4px 12px;">Público</span>
+                <span th:unless="${puesto.publico}" class="skill-tag-index" style="background: #be123c; color: white; border: none; padding: 4px 12px;">Desactivado</span>
+            </div>
+
+            <p style="color: var(--accent-celeste); font-weight: 800; font-size: 1.2rem; margin-bottom: 15px;">
+                Salario: $<span th:text="${puesto.salario}"></span>
+            </p>
+
+            <p th:text="${puesto.descripcion}" style="color: #475569; line-height: 1.6; margin-bottom: 20px; max-width: 800px;"></p>
+
+            <div style="font-weight: 700; font-size: 0.9rem; margin-bottom: 10px; color: #1e293b;">Características Requeridas:</div>
+            <div class="skills-container">
+                <span th:each="hab : ${puesto.habilidades}" th:text="${hab.nombre}" class="skill-tag-puestos"></span>            </div>
+
+            <div style="margin-top: 20px; font-size: 0.85rem; color: #94a3b8; font-weight: 500;">
+                Publicado el: <span th:text="${puesto.fecha}"></span>
+            </div>
+        </div>
+
+        <div style="margin-left: 30px;">
+            <form th:action="@{/empresa/cambiar-estado}" method="post">
+                <input type="hidden" name="id" th:value="${puesto.id}">
+
+                <button type="submit" th:if="${puesto.publico}" class="btn-status btn-desactivar" style="min-width: 120px;">
+                    Desactivar
+                </button>
+                <button type="submit" th:unless="${puesto.publico}" class="btn-status btn-activar" style="min-width: 120px; background: #050a14; color: white;">
+                    Activar
+                </button>
+            </form>
+        </div>
+    </div>
+</main>
+
 </body>
 </html>

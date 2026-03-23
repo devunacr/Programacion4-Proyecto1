@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Empleos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body style="background-color: #f8fafc;">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div style="display: flex; max-width: 1200px; margin: 40px auto; gap: 30px; padding: 0 20px;">
+
+    <aside class="filter-sidebar">
+        <h3 style="margin-top: 0; font-size: 1.2rem;">Filtros de Búsqueda</h3>
+
+        <form th:action="@{/puestos}" method="get">
+            <div class="filter-group">
+                <label>Buscar por texto</label>
+                <input type="text" name="texto" class="filter-input" placeholder="Título, descripción...">
+            </div>
+
+            <div class="filter-group">
+                <label>Habilidad requerida</label>
+                <select name="habilidad" class="filter-select">
+                    <option value="">Todas las habilidades</option>
+                    <option value="Java">Java</option>
+                    <option value="Python">Python</option>
+                    <option value="React">React</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Salario mínimo: <span id="salaryValue">$0</span></label>
+                <input type="range" name="salarioMin" class="salary-range"
+                       min="0" max="10000" step="500" value="0"
+                       oninput="document.getElementById('salaryValue').innerText = '$' + this.value">
+            </div>
+
+            <button type="submit" class="btn-filter-search">
+                <span>🔍</span> Buscar
+            </button>
+
+            <button type="reset" class="btn-filter-clear"
+                    onclick="window.location.href='/puestos'">
+                Limpiar Filtros
+            </button>
+        </form>
+    </aside>
+
+    <main style="flex: 1;">
+        <div th:if="${puestos != null and !puestos.isEmpty()}">
+            <h2 style="margin-bottom: 25px;" th:text="${#lists.size(puestos)} + ' Resultados'"></h2>
+
+            <div th:each="puesto : ${puestos}" class="job-card-wide">
+                <div class="job-header">
+                    <div>
+                        <h3 th:text="${puesto.titulo}" style="margin:0;"></h3>
+                        <p style="color: #64748b;" th:text="${puesto.nombreEmpresa}"></p>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="salary-amount-puestos" th:text="'$' + ${puesto.salario}"></span>
+                        <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">mensuales</p>
+                    </div>
+                </div>
+
+                <p th:text="${puesto.descripcion}" style="margin: 20px 0; color: #475569;"></p>
+
+                <p style="font-weight: 700; font-size: 0.85rem; margin-bottom: 10px;">Características requeridas:</p>
+                <div class="skills-container">
+                        <span th:each="habilidad : ${puesto.habilidades}"
+                              class="skill-tag-puestos"
+                              th:text="${habilidad}"></span>
+                </div>
+
+                <div style="font-size: 0.85rem; color: #94a3b8;" th:text="'Publicado: ' + ${puesto.fecha}"></div>
+            </div>
+        </div>
+
+        <div th:unless="${puestos != null and !puestos.isEmpty()}" style="text-align: center; padding: 60px; background: white; border-radius: 15px; border: 1px solid #eef2f6;">
+            <h2 style="font-size: 2rem; margin: 0;">0 Resultados</h2>
+            <p style="color: #64748b; font-size: 1.1rem; margin: 10px 0;">No se encontraron resultados</p>
+            <p style="color: #94a3b8; font-size: 0.9rem;">Intenta ajustar tus filtros de búsqueda</p>
+        </div>
+    </main>
+</div>
+</body>
+</html>

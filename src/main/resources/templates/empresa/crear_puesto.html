@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bolsa de Empleo | Publicar Puesto</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #f4f8fb;">
+
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div class="auth-container">
+    <div class="auth-card-wide" style="max-width: 700px;">
+        <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 10px;">Crear Nueva Vacante</h2>
+        <p style="color: #64748b; margin-bottom: 30px;">Completa la información para publicar un nuevo puesto de trabajo.</p>
+
+        <form th:action="@{/empresa/puestos}" th:object="${puesto}" method="post">
+            <div class="grid-form">
+                <div class="form-group full-width">
+                    <label>Título del Puesto *</label>
+                    <input type="text" th:field="*{titulo}" class="filter-input" placeholder="Ej: Desarrollador Java Senior" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Salario Mensual (USD) *</label>
+                    <input type="number" th:field="*{salario}" class="filter-input" placeholder="Ej: 3500" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Categoría</label>
+                    <select th:field="*{categoria}" class="filter-select">
+                        <option value="Tecnología">Tecnología</option>
+                        <option value="Administración">Administración</option>
+                        <option value="Ventas">Ventas</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Descripción del Puesto *</label>
+                    <textarea th:field="*{descripcion}" class="filter-input" style="height: 120px; resize: none;" required></textarea>
+                </div>
+
+            </div>
+
+            <div style="display: flex; gap: 15px; margin-top: 30px;">
+                <button type="submit" class="btn-black-full">Publicar Ahora</button>
+                <a th:href="@{/empresa/dashboard}" class="btn-filter-clear">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

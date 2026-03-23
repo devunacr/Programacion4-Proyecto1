@@ -1,28 +1,11 @@
 package cr.ac.una.bolsaempleo.controller;
-
+import cr.ac.una.bolsaempleo.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@Controller @RequestMapping("/admin")
 public class AdminController {
-
-    @GetMapping("/admin/dashboard")
-    public String dashboard() {
-        return "admin/dashboard";
-    }
-
-    @GetMapping("/admin/empresas")
-    public String empresas() {
-        return "admin/empresas";
-    }
-
-    @GetMapping("/admin/oferentes")
-    public String oferentes() {
-        return "admin/oferentes";
-    }
-
-    @GetMapping("/admin/caracteristicas")
-    public String caracteristicas() {
-        return "admin/caracteristicas";
-    }
+    @GetMapping("/panel") public String panel() { return "admin/panel"; }
 }
