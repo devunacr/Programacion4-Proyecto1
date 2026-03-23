@@ -1,78 +1,122 @@
 package cr.ac.una.bolsaempleo.repository;
 
 import cr.ac.una.bolsaempleo.model.Oferente;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class OferenteRepository implements IrepositoryMethods<Oferente> {
 
-    private List<Oferente> listaOferentes = new ArrayList<>();
+    private final JdbcTemplate jdbcTemplate;
+
+    public OferenteRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
 
     @Override
     public List<Oferente> buscarATodos() {
-        return listaOferentes;
+        String sql = "SELECT id, nombre, apellidos, nacionalidad, telefono, correopersonal, residencia, password FROM oferente";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new Oferente(
+                rs.getString("id"),
+                rs.getString("nombre"),
+                rs.getString("apellidos"),
+                rs.getString("nacionalidad"),
+                rs.getString("telefono"),
+                rs.getString("correopersonal"),
+                rs.getString("residencia"),
+                rs.getString("password")
+        ));
     }
-
-    @Override
-    public Optional<Oferente> buscarPorNombre(String nombre) {
-
-        for (Oferente oferente : listaOferentes) {
-
-            if (oferente.getNombre().equalsIgnoreCase(nombre)) {
-                return Optional.of(oferente);
-            }
-        }
-        return Optional.empty();
-    }
-
 
     @Override
     public Optional<Oferente> buscarPorId(String id) {
-
-        for (Oferente oferente : listaOferentes) {
-
-            if (oferente.getId().equals(id)) {
-                return Optional.of(oferente);
-            }
-
-        }
-
-        return Optional.empty();
+        String sql = "SELECT id, nombre, apellidos, nacionalidad, telefono, correopersonal, residencia, password FROM oferente WHERE id = ?";
+        List<Oferente> result = jdbcTemplate.query(sql, (rs, rowNum) -> new Oferente(
+                rs.getString("id"),
+                rs.getString("nombre"),
+                rs.getString("apellidos"),
+                rs.getString("nacionalidad"),
+                rs.getString("telefono"),
+                rs.getString("correopersonal"),
+                rs.getString("residencia"),
+                rs.getString("password")
+        ), id);
+        return result.stream().findFirst();
     }
 
     @Override
     public Oferente crearObjeto(Oferente oferenteNuevo) {
-
-        listaOferentes.add(oferenteNuevo);
+        String sql = "INSERT INTO oferente (id, nombre, apellidos, nacionalidad, telefono, correopersonal, residencia, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql,
+                oferenteNuevo.getId(),
+                oferenteNuevo.getNombre(),
+                oferenteNuevo.getApellidos(),
+                oferenteNuevo.getNacionalidad(),
+                oferenteNuevo.getTelefono(),
+                oferenteNuevo.getCorreoPersonal(),
+                oferenteNuevo.getResidencia(),
+                oferenteNuevo.getPassword()
+        );
         return oferenteNuevo;
-
     }
 
     @Override
     public Oferente actualizarObjeto(Oferente oferenteActualizado) {
-
-        for (int indice = 0; indice < listaOferentes.size(); indice++) {
-
-            Oferente oferenteActual = listaOferentes.get(indice);
-
-            if (oferenteActual.getId().equals(oferenteActualizado.getId())) {
-
-                listaOferentes.set(indice, oferenteActualizado);
-                return oferenteActualizado;
-
-            }
-
-        }
-
-        return null;
+        String sql = "UPDATE oferente SET nombre = ?, apellidos = ?, nacionalidad = ?, telefono = ?, correopersonal = ?, residencia = ?, password = ? WHERE id = ?";
+        jdbcTemplate.update(sql,
+                oferenteActualizado.getNombre(),
+                oferenteActualizado.getApellidos(),
+                oferenteActualizado.getNacionalidad(),
+                oferenteActualizado.getTelefono(),
+                oferenteActualizado.getCorreoPersonal(),
+                oferenteActualizado.getResidencia(),
+                oferenteActualizado.getPassword(),
+                oferenteActualizado.getId()
+        );
+        return oferenteActualizado;
     }
 
     @Override
     public void eliminarObjeto(String id) {
-
-        listaOferentes.removeIf(oferente -> oferente.getId().equals(id));
-
+        String sql = "DELETE FROM oferente WHERE id = ?";
+        jdbcTemplate.update(sql, id);
     }
+
+    @Override
+    public Optional<Oferente> buscarPorNombre(String nombre) {
+        String sql = "SELECT id, nombre, apellidos, nacionalidad, telefono, correopersonal, residencia, password FROM oferente WHERE nombre = ?";
+        List<Oferente> result = jdbcTemplate.query(sql, (rs, rowNum) -> new Oferente(
+                rs.getString("id"),
+                rs.getString("nombre"),
+                rs.getString("apellidos"),
+                rs.getString("nacionalidad"),
+                rs.getString("telefono"),
+                rs.getString("correopersonal"),
+                rs.getString("residencia"),
+                rs.getString("password")
+        ), nombre);
+        return result.stream().findFirst();
+    }
+
+    @Override
+    public Optional<Oferente> buscarPorCorreo(String correo) {
+        String sql = "SELECT id, nombre, apellidos, nacionalidad, telefono, correopersonal, residencia, password " +
+                "FROM oferente WHERE correopersonal = ?";
+        List<Oferente> result = jdbcTemplate.query(sql, (rs, rowNum) -> new Oferente(
+                rs.getString("id"),
+                rs.getString("nombre"),
+                rs.getString("apellidos"),
+                rs.getString("nacionalidad"),
+                rs.getString("telefono"),
+                rs.getString("correopersonal"),
+                rs.getString("residencia"),
+                rs.getString("password")
+        ), correo);
+        return result.stream().findFirst();
+    }
+
 }

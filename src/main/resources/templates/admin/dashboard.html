@@ -1,9 +1,12 @@
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head><title>Dashboard Admin</title></head>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Admin Dashboard</title></head>
 <body>
-<h2>Administrador</h2>
-<a th:href="@{/admin/empresas}">Empresas pendientes</a> |
-<a th:href="@{/admin/oferentes}">Oferentes pendientes</a> |
-<a th:href="@{/admin/caracteristicas}">Características</a>
+<h1>Panel de Administración</h1>
+<nav>
+    <a href="/admin/empresas">Ver Empresas</a> |
+    <a href="/admin/oferentes">Ver Oferentes</a> |
+    <a href="/admin/caracteristicas">Ver Características</a>
+</nav>
 </body>
 </html>

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Habilidades</title></head>
+<body>
+<h2>Habilidades del Oferente</h2>
+<ul>
+    <li th:each="h : ${habilidades}" th:text="${h.nombre}"></li>
+</ul>
+</body>
+</html>

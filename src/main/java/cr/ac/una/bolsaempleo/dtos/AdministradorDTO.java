@@ -2,23 +2,23 @@ package cr.ac.una.bolsaempleo.dtos;
 
 public class AdministradorDTO {
 
-    private String idAdmin;
+    private String id;
     private String nombreAdmin;
 
     public AdministradorDTO() {
     }
 
-    public AdministradorDTO(String idAdmin, String nombreAdmin) {
-        this.idAdmin = idAdmin;
+    public AdministradorDTO(String id, String nombreAdmin) {
+        this.id = id;
         this.nombreAdmin = nombreAdmin;
     }
 
-    public String getIdAdmin() {
-        return idAdmin;
+    public String getId() {
+        return id;
     }
 
-    public void setIdAdmin(String idAdmin) {
-        this.idAdmin = idAdmin;
+    public void setIdAdmin(long idAdmin) {
+        this.id = id;
     }
 
     public String getNombreAdmin() {

@@ -1,7 +1,16 @@
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head><title>Bolsa de Empleo</title></head>
 <body>
-<h1 th:text="${mensaje}">Bienvenido</h1>
-<a th:href="@{/login}">Iniciar sesión</a>
+<h1 th:text="${mensaje}"></h1>
+
+<h2>Últimos Puestos</h2>
+<ul>
+    <li th:each="p : ${puestos}">
+        <span th:text="${p.titulo}"></span> - <span th:text="${p.salario}"></span>
+    </li>
+</ul>
+
+<p><a href="/login"><button>Iniciar Sesión</button></a></p>
 </body>
 </html>

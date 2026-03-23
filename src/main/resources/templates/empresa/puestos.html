@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Puestos</title></head>
+<body>
+<h2>Puestos Disponibles</h2>
+<table>
+    <tr><th>ID</th><th>Título</th><th>Descripción</th><th>Salario</th></tr>
+    <tr th:each="p : ${puestos}">
+        <td th:text="${p.id}"></td>
+        <td th:text="${p.titulo}"></td>
+        <td th:text="${p.descripcion}"></td>
+        <td th:text="${p.salario}"></td>
+    </tr>
+</table>
+</body>
+</html>
