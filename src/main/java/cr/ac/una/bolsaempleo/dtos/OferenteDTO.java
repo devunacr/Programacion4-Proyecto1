@@ -7,20 +7,20 @@ public class OferenteDTO {
     private String apellidos;
     private String nacionalidad;
     private String telefono;
-    private String correoPersonal;
+    private String correopersonal;
     private String residencia;
 
     public OferenteDTO() {
     }
 
     public OferenteDTO(String id, String nombre, String apellidos, String nacionalidad,
-                       String telefono, String correoPersonal, String residencia) {
+                       String telefono, String correopersonal, String residencia) {
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.nacionalidad = nacionalidad;
         this.telefono = telefono;
-        this.correoPersonal = correoPersonal;
+        this.correopersonal = correopersonal;
         this.residencia = residencia;
     }
 
@@ -29,7 +29,7 @@ public class OferenteDTO {
     public String getApellidos() { return apellidos; }
     public String getNacionalidad() { return nacionalidad; }
     public String getTelefono() { return telefono; }
-    public String getCorreoPersonal() { return correoPersonal; }
+    public String getCorreoPersonal() { return correopersonal; }
     public String getResidencia() { return residencia; }
 
     public void setId(String id) { this.id = id; }
@@ -37,6 +37,6 @@ public class OferenteDTO {
     public void setApellidos(String apellidos) { this.apellidos = apellidos; }
     public void setNacionalidad(String nacionalidad) { this.nacionalidad = nacionalidad; }
     public void setTelefono(String telefono) { this.telefono = telefono; }
-    public void setCorreoPersonal(String correoPersonal) { this.correoPersonal = correoPersonal; }
+    public void setCorreoPersonal(String correopersonal) { this.correopersonal = this.correopersonal; }
     public void setResidencia(String residencia) { this.residencia = residencia; }
 }

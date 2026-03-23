@@ -1,8 +1,33 @@
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head><title>Dashboard Oferente</title></head>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Panel Oferente</title></head>
 <body>
-<h2 th:text="'Bienvenido, ' + ${oferente}">Oferente</h2>
-<a th:href="@{/oferente/habilidades}">Mis habilidades</a> |
-<a th:href="@{/oferente/cv}">Mi CV</a>
+<h1>Panel del Oferente</h1>
+<nav>
+    <a href="/oferente/habilidades">Ver Habilidades</a> |
+    <a href="/oferente/cv">Ver CV</a>
+</nav>
+
+<h2>Datos del Oferente</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Nacionalidad</th>
+        <th>Teléfono</th>
+        <th>Correo</th>
+        <th>Residencia</th>
+    </tr>
+    <tr th:each="o : ${oferentes}">
+        <td th:text="${o.id}"></td>
+        <td th:text="${o.nombre}"></td>
+        <td th:text="${o.apellidos}"></td>
+        <td th:text="${o.nacionalidad}"></td>
+        <td th:text="${o.telefono}"></td>
+        <td th:text="${o.correoPersonal}"></td>
+        <td th:text="${o.residencia}"></td>
+    </tr>
+</table>
 </body>
 </html>

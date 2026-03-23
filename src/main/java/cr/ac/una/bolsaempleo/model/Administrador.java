@@ -1,24 +1,30 @@
 package cr.ac.una.bolsaempleo.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "administrador")
 public class Administrador {
 
-    private String idAdmin;
+    @Id
+    private String id;
     private String nombreAdmin;
-    private String password; // 🔐 interno
+    private String password;
 
     public Administrador() {}
 
     public Administrador(String idAdmin, String nombreAdmin, String password) {
-        this.idAdmin = idAdmin;
+        this.id = idAdmin;
         this.nombreAdmin = nombreAdmin;
         this.password = password;
     }
 
-    public String getIdAdmin() { return idAdmin; }
-    public String getNombreAdmin() { return nombreAdmin; }
-    public String getPassword() { return password; }
+    public String getId() { return id; }
+    public void setIdAdmin(String idAdmin) { this.id = idAdmin; }
 
-    public void setIdAdmin(String idAdmin) { this.idAdmin = idAdmin; }
+    public String getNombreAdmin() { return nombreAdmin; }
     public void setNombreAdmin(String nombreAdmin) { this.nombreAdmin = nombreAdmin; }
+
+    public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 }

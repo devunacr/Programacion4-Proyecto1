@@ -1,79 +1,99 @@
 package cr.ac.una.bolsaempleo.repository;
 
 import cr.ac.una.bolsaempleo.model.Empresa;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class EmpresaRepository implements IrepositoryMethods<Empresa> {
 
-    private List<Empresa> listaEmpresas = new ArrayList<>();
+    private final JdbcTemplate jdbcTemplate;
 
-    @Override
-    public List<Empresa> buscarATodos() {
-        return listaEmpresas;
+    public EmpresaRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    public Optional<Empresa> buscarPorNombre(String nombre) {
-
-        for (Empresa empresa : listaEmpresas) {
-
-            if (empresa.getNombre().equalsIgnoreCase(nombre)) {
-                return Optional.of(empresa);
-            }
-
-        }
-
-        return Optional.empty();
+    public List<Empresa> buscarATodos() {
+        String sql = "SELECT id, nombre, correo FROM empresa";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new Empresa(
+                rs.getString("id"),
+                rs.getString("nombre"),
+                null, // dirección
+                rs.getString("correo"),
+                null, // teléfono
+                null, // descripción
+                null  // password
+        ));
     }
 
     @Override
     public Optional<Empresa> buscarPorId(String id) {
-
-        for (Empresa empresa : listaEmpresas) {
-
-            if (empresa.getId().equals(id)) {
-                return Optional.of(empresa);
-            }
-
-        }
-
-        return Optional.empty();
+        String sql = "SELECT id, nombre, correo FROM empresa WHERE id = ?";
+        List<Empresa> result = jdbcTemplate.query(sql, (rs, rowNum) -> new Empresa(
+                rs.getString("id"),
+                rs.getString("nombre"),
+                null,
+                rs.getString("correo"),
+                null,
+                null,
+                null
+        ), id);
+        return result.stream().findFirst();
     }
 
     @Override
     public Empresa crearObjeto(Empresa empresaNueva) {
-
-        listaEmpresas.add(empresaNueva);
+        String sql = "INSERT INTO empresa (id, nombre, correo) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql, empresaNueva.getId(), empresaNueva.getNombre(), empresaNueva.getCorreo());
         return empresaNueva;
-
     }
 
     @Override
     public Empresa actualizarObjeto(Empresa empresaActualizada) {
-
-        for (int indice = 0; indice < listaEmpresas.size(); indice++) {
-
-            Empresa empresaActual = listaEmpresas.get(indice);
-
-            if (empresaActual.getId().equals(empresaActualizada.getId())) {
-
-                listaEmpresas.set(indice, empresaActualizada);
-                return empresaActualizada;
-
-            }
-
-        }
-
-        return null;
+        String sql = "UPDATE empresa SET nombre = ?, correo = ? WHERE id = ?";
+        jdbcTemplate.update(sql, empresaActualizada.getNombre(), empresaActualizada.getCorreo(), empresaActualizada.getId());
+        return empresaActualizada;
     }
 
     @Override
     public void eliminarObjeto(String id) {
+        String sql = "DELETE FROM empresa WHERE id = ?";
+        jdbcTemplate.update(sql, id);
+    }
 
-        listaEmpresas.removeIf(empresa -> empresa.getId().equals(id));
+    @Override
+    public Optional<Empresa> buscarPorCorreo(String correo) {
+        String sql = "SELECT id, nombre, direccion, telefono, correo, password " +
+                "FROM empresa WHERE correo = ?";
+        List<Empresa> result = jdbcTemplate.query(sql, (rs, rowNum) -> new Empresa(
+                rs.getString("id"),
+                rs.getString("nombre"),
+                rs.getString("direccion"),
+                rs.getString("correo"),
+                rs.getString("telefono"),
+                rs.getString("descripcion"),
+                rs.getString("password")
+        ), correo);
 
+        return result.stream().findFirst();
+    }
+
+    @Override
+    public Optional<Empresa> buscarPorNombre(String nombre) {
+        String sql = "SELECT id, nombre, correo FROM empresa WHERE nombre = ?";
+        List<Empresa> result = jdbcTemplate.query(sql, (rs, rowNum) -> new Empresa(
+                rs.getString("id"),
+                rs.getString("nombre"),
+                null,
+                rs.getString("correo"),
+                null,
+                null,
+                null
+        ), nombre);
+        return result.stream().findFirst();
     }
 }

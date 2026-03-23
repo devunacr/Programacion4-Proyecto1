@@ -12,4 +12,5 @@ public interface IrepositoryMethods<T> {
     T crearObjeto(T obj);
     T actualizarObjeto(T obj);
     void eliminarObjeto(String id);
+    Optional<T> buscarPorCorreo(String correo);
 }

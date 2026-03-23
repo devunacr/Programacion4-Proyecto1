@@ -1,8 +1,21 @@
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head><title>Dashboard Empresa</title></head>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Panel Empresa</title></head>
 <body>
-<h2 th:text="'Bienvenido, ' + ${empresa}">Empresa</h2>
-<a th:href="@{/empresa/puestos}">Ver mis puestos</a> |
-<a th:href="@{/empresa/publicar}">Publicar nuevo puesto</a>
+<h1>Panel de Empresa</h1>
+<nav>
+    <a href="/empresa/puestos">Ver Puestos</a> |
+    <a href="/empresa/publicar">Publicar Puesto</a>
+</nav>
+
+<h2>Empresas Registradas</h2>
+<table>
+    <tr><th>ID</th><th>Nombre</th><th>Correo</th></tr>
+    <tr th:each="e : ${empresas}">
+        <td th:text="${e.id}"></td>
+        <td th:text="${e.nombre}"></td>
+        <td th:text="${e.correo}"></td>
+    </tr>
+</table>
 </body>
 </html>
