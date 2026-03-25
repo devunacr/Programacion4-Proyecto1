@@ -1,9 +1,12 @@
 package cr.ac.una.bolsaempleo.repository;
 
+import cr.ac.una.bolsaempleo.model.Habilidad;
+import cr.ac.una.bolsaempleo.model.HabilidadOferente;
 import cr.ac.una.bolsaempleo.model.Oferente;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -119,4 +122,68 @@ public class OferenteRepository implements IrepositoryMethods<Oferente> {
         return result.stream().findFirst();
     }
 
+    public List<Oferente> buscarConFiltros(String habilidadBusqueda, int nivelMinimo) {
+        List<Oferente> todos = buscarATodos();
+
+        if ((habilidadBusqueda == null || habilidadBusqueda.isEmpty()) && nivelMinimo <= 1) {
+            return todos;
+        }
+
+        for (Oferente o : todos) {
+            o.setHabilidadesOferente(obtenerHabilidadesDeCandidato(o.getId()));
+        }
+
+        List<Oferente> filtrados = new ArrayList<>();
+        for (Oferente o : todos) {
+            boolean cumple = false;
+            for (HabilidadOferente ho : o.getHabilidadesOferente()) {
+                boolean matchesHab = (habilidadBusqueda == null || habilidadBusqueda.isEmpty() ||
+                        ho.getHabilidad().getNombre().equalsIgnoreCase(habilidadBusqueda));
+                boolean matchesNivel = (ho.getNivel() >= nivelMinimo);
+
+                if (matchesHab && matchesNivel) {
+                    cumple = true;
+                    break;
+                }
+            }
+            if (cumple) filtrados.add(o);
+        }
+        return filtrados;
+    }
+
+    private List<HabilidadOferente> obtenerHabilidadesDeCandidato(String oferenteId) {
+        String sql = "SELECT h.nombre, ho.nivel FROM habilidad_oferente ho " +
+                "JOIN habilidad h ON ho.habilidad_id = h.id WHERE ho.oferente_id = ?";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            Habilidad h = new Habilidad();
+            h.setNombre(rs.getString("nombre"));
+            HabilidadOferente ho = new HabilidadOferente();
+            ho.setHabilidad(h);
+            ho.setNivel(rs.getInt("nivel"));
+            return ho;
+        }, oferenteId);
+    }
+
+    public long contarTodos() {
+        String sql = "SELECT COUNT(*) FROM oferente";
+        return jdbcTemplate.queryForObject(sql, Long.class);
+    }
+
+
+    public List<Oferente> buscarPendientes() {
+        String sql = "SELECT id, nombre, apellidos, correopersonal, telefono FROM oferente WHERE estado = 'PENDIENTE'";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            Oferente o = new Oferente();
+            o.setId(rs.getString("id"));
+            o.setNombre(rs.getString("nombre"));
+            o.setApellidos(rs.getString("apellidos"));
+            o.setCorreoPersonal(rs.getString("correopersonal"));
+            o.setTelefono(rs.getString("telefono"));
+            return o;
+        });
+    }
+
+    public List<Oferente> buscarTodos() {
+        return buscarATodos();
+    }
 }

@@ -1,19 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Login</title></head>
-<body>
-<h2>Iniciar Sesión</h2>
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión | Bolsa de Empleo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-bg"> <header th:replace="~{fragments/header :: header}"></header>
 
-<form action="/login" method="post">
-    <label>Usuario/Correo:</label>
-    <input type="text" name="correo" required><br><br>
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>Iniciar Sesión</h2>
+        <p class="auth-subtitle">Ingresa a tu cuenta para acceder al sistema</p>
 
-    <label>Contraseña:</label>
-    <input type="password" name="password" required><br><br>
+        <div th:if="${mensajeError}" class="error-alert">
+            <span>ⓘ</span>
+            <p th:text="${mensajeError}"></p>
+        </div>
 
-    <button type="submit">Ingresar</button>
-</form>
+        <div class="role-tabs">
+            <a th:href="@{/login(rol='Oferente')}"
+               th:classappend="${rolSeleccionado == 'Oferente'} ? 'active'">Oferente</a>
+            <a th:href="@{/login(rol='Empresa')}"
+               th:classappend="${rolSeleccionado == 'Empresa'} ? 'active'">Empresa</a>
+            <a th:href="@{/login(rol='Admin')}"
+               th:classappend="${rolSeleccionado == 'Admin'} ? 'active'">Admin</a>
+        </div>
 
-<p th:text="${error}"></p>
+        <form th:action="@{/login}" method="post" class="auth-form">
+            <input type="hidden" name="rol" th:value="${rolSeleccionado}">
+
+            <div class="form-group">
+                <label>Correo Electrónico / Usuario *</label>
+                <input type="text" name="username" required placeholder="ejemplo@correo.com" class="filter-input">
+
+                <label>Contraseña *</label>
+                <input type="password" name="password" required placeholder="••••••••" class="filter-input">
+
+                <button type="submit" class="btn-black-full">
+                    Ingresar como <span th:text="${rolSeleccionado}"></span>
+                </button>
+            </div>
+        </form>
+
+        <div class="auth-footer">
+            <p th:if="${rolSeleccionado == 'Oferente'}">¿No tienes cuenta? <a th:href="@{/registro/oferente}">Regístrate aquí</a></p>
+            <p th:if="${rolSeleccionado == 'Empresa'}">¿Tu empresa no está registrada? <a th:href="@{/registro/empresa}">Regístrate aquí</a></p>
+            <p th:if="${rolSeleccionado == 'Admin'}" class="admin-note">Acceso restringido a personal autorizado.</p>
+        </div>
+    </div>
+</div>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>

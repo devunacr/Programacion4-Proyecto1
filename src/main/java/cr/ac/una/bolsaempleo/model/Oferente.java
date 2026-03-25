@@ -2,6 +2,9 @@ package cr.ac.una.bolsaempleo.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "oferente")
 public class Oferente {
@@ -15,6 +18,9 @@ public class Oferente {
     private String correopersonal;
     private String residencia;
     private String password;
+
+    @OneToMany(mappedBy = "oferente", cascade = CascadeType.ALL)
+    private List<HabilidadOferente> habilidadesOferente = new ArrayList<>();
 
     public Oferente() {}
 
@@ -52,4 +58,20 @@ public class Oferente {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+
+    public List<HabilidadOferente> getHabilidadesOferente() {
+        return habilidadesOferente;
+    }
+
+    public void setHabilidadesOferente(List<HabilidadOferente> habilidadesOferente) {
+        this.habilidadesOferente = habilidadesOferente;
+    }
+
+    public String getCorreopersonal() {
+        return correopersonal;
+    }
+
+    public void setCorreopersonal(String correopersonal) {
+        this.correopersonal = correopersonal;
+    }
 }

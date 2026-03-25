@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header" class="main-header">
+    <div class="nav-container">
+
+        <a th:href="@{/}" class="brand">
+            <img th:src="@{/images/logo.png}" alt="Logo" style="width:35px; height:auto;">
+
+            <span th:with="user=${session.usuarioLogueado}, rol=${session.rol}">
+                <th:block th:if="${user == null}">Bolsa de Empleo</th:block>
+
+                <th:block th:if="${user != null}">
+                    <span th:text="${rol == 'admin' ? user : user.nombre}"></span>
+                </th:block>
+            </span>
+        </a>
+
+        <nav class="header-actions">
+            <a th:href="@{/}" style="text-decoration:none; color:var(--text-main); font-weight:600;">
+                Inicio
+            </a>
+
+            <th:block th:if="${session.usuarioLogueado == null}">
+                <a th:href="@{/login}" class="btn-black-full" style="width: auto; padding: 10px 20px; text-decoration: none;">
+                    Iniciar Sesión
+                </a>
+            </th:block>
+
+            <div th:if="${session.usuarioLogueado != null}" style="display:flex; gap:20px; align-items:center;">
+
+                <a th:if="${session.rol == 'empresa'}" th:href="@{/empresa/dashboard}"
+                   style="text-decoration:none; color:var(--text-main); font-weight:700;">Dashboard</a>
+
+                <a th:if="${session.rol == 'admin'}" th:href="@{/admin/dashboard}"
+                   style="text-decoration:none; color:var(--text-main); font-weight:700;">Dashboard</a>
+
+                <a th:if="${session.rol == 'oferente'}" th:href="@{/oferente/dashboard}"
+                   style="text-decoration:none; color:var(--text-main); font-weight:700;">Dashboard</a>
+
+                <a th:href="@{/logout}" style="text-decoration:none; color:#be123c; font-weight:700;">
+                    Cerrar Sesión
+                </a>
+            </div>
+        </nav>
+    </div>
+</header>
+</body>
+</html>

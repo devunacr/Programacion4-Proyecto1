@@ -1,16 +1,79 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Bolsa de Empleo</title></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Bolsa de Empleo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
 <body>
-<h1 th:text="${mensaje}"></h1>
+<header th:replace="~{fragments/header :: header}"></header>
 
-<h2>Últimos Puestos</h2>
-<ul>
-    <li th:each="p : ${puestos}">
-        <span th:text="${p.titulo}"></span> - <span th:text="${p.salario}"></span>
-    </li>
-</ul>
+<main class="hero">
+    <h1>Conectamos Talento con Oportunidades</h1>
 
-<p><a href="/login"><button>Iniciar Sesión</button></a></p>
+    <div class="search-bar-container">
+        <input type="text" class="search-input" placeholder="Buscar Empleos...">
+        <a th:href="@{/puestos}" class="btn-search" style="text-decoration: none; display: flex; align-items: center;">Buscar</a>
+    </div>
+
+    <section class="info-grid">
+        <div class="info-card">
+            <img th:src="@{/images/building.png}" width="40">
+            <h3>Para Empresas</h3>
+            <p>Publica vacantes y encuentra los mejores candidatos</p>
+            <ul class="card-list">
+                <li>Publica puestos públicos o privados</li>
+                <li>Busca candidatos por habilidades</li>
+                <li>Gestiona tus vacantes activas</li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <img th:src="@{/images/user.png}" width="40">
+            <h3>Para Oferentes</h3>
+            <p>Muestra tus habilidades y encuentra tu trabajo ideal</p>
+            <ul class="card-list">
+                <li>Crea tu perfil profesional</li>
+                <li>Sube tu currículum</li>
+                <li>Busca oportunidades que coincidan</li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <img th:src="@{/images/ai.png}" width="40">
+            <h3>Sistema Inteligente</h3>
+            <p>Algoritmo de coincidencia basado en habilidades</p>
+            <ul class="card-list">
+                <li>Coincidencias precisas</li>
+                <li>Sistema de niveles de habilidad</li>
+                <li>Búsquedas personalizadas</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="jobs-section">
+        <h2>Puestos Recientes</h2>
+
+        <div class="jobs-grid">
+            <div th:if="${puestos == null or #lists.isEmpty(puestos)}">
+                <p>Por ahora no hay vacantes disponibles.</p>
+            </div>
+
+            <div th:each="puesto : ${puestos}" class="job-card">
+                <h4 th:text="${puesto.titulo}" style="margin-bottom: 5px;"></h4>
+                <span th:text="${puesto.empresa != null ? puesto.empresa.nombre : 'Sin empresa'}"></span>
+                <p th:text="${puesto.descripcion}" style="font-size: 0.85rem; margin: 15px 0;"></p>
+
+                <div class="skills-container" style="gap: 5px; margin-bottom: 15px;">
+                    <span class="skill-tag" style="font-size: 0.7rem; padding: 3px 8px;">Node.js</span>
+                    <span class="skill-tag" style="font-size: 0.7rem; padding: 3px 8px;">MySQL</span>
+                </div>
+
+                <span class="salary-tag" th:text="'$' + ${puesto.salario}"></span>
+            </div>
+        </div>
+
+        <a th:href="@{/puestos}" class="btn-view-all">Ver todos los puestos</a>
+    </section>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>

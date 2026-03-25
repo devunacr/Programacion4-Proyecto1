@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro Oferente | Bolsa de Empleo</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-bg">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div class="auth-container">
+  <div class="auth-card-wide">
+    <h2>Registrar Oferente</h2>
+    <p class="auth-subtitle">Completa el formulario para crear tu perfil profesional</p>
+
+    <form th:action="@{/registro/oferente}" th:object="${oferente}" method="post" class="grid-form">
+      <div class="form-group">
+        <label>Identificación *</label>
+        <input type="text" th:field="*{id}" required class="filter-input">
+      </div>
+      <div class="form-group">
+        <label>Nombre *</label>
+        <input type="text" th:field="*{nombre}" required class="filter-input">
+      </div>
+      <div class="form-group">
+        <label>Apellidos *</label>
+        <input type="text" th:field="*{apellidos}" required class="filter-input">
+      </div>
+      <div class="form-group">
+        <label>Correo Electrónico *</label>
+        <input type="email" th:field="*{correoPersonal}" required class="filter-input">
+      </div>
+      <div class="form-group full-width">
+        <label>Contraseña *</label>
+        <input type="password" th:field="*{password}" required class="filter-input">
+      </div>
+      <div class="full-width">
+        <button type="submit" class="btn-black-full">Registrar Oferente</button>
+      </div>
+    </form>
+
+    <p class="auth-footer-text">¿Ya tienes cuenta? <a th:href="@{/login(rol='Oferente')}">Inicia sesión aquí</a></p>
+  </div>
+</div>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

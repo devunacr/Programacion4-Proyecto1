@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bolsa de Empleo | Publicar Puesto</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #f4f8fb;">
+
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div class="auth-container">
+    <div class="auth-card-wide" style="max-width: 700px;">
+        <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 10px;">Crear Nueva Vacante</h2>
+        <p style="color: #64748b; margin-bottom: 30px;">Completa la información para publicar un nuevo puesto de trabajo.</p>
+
+        <form th:action="@{/empresa/puestos}" th:object="${puesto}" method="post">
+            <div class="grid-form">
+                <div class="form-group full-width">
+                    <label>Título del Puesto *</label>
+                    <input type="text" th:field="*{titulo}" class="filter-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Salario Mensual (USD) *</label>
+                    <input type="number" th:field="*{salario}" class="filter-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Categoría</label>
+                    <select th:field="*{categoria}" class="filter-select">
+                        <option value="Tecnología">Tecnología</option>
+                        <option value="Administración">Administración</option>
+                        <option value="Ventas">Ventas</option>
+                        <option value="Diseño">Diseño</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Descripción del Puesto *</label>
+                    <textarea th:field="*{descripcion}" class="filter-input" style="height: 100px; resize: none;" required></textarea>
+                </div>
+
+                <div class="form-group full-width" style="margin-top: 20px; pt-20">
+                    <label>Características Requeridas *</label>
+                    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 15px;">
+                        <select name="habilidadNombre" class="filter-select" style="flex: 2;">
+                            <option value="-1">Seleccionar habilidad</option>
+                            <option th:each="h : ${todasLasHabilidades}"
+                                    th:value="${h}"
+                                    th:text="${h}"></option>
+                        </select>
+
+                        <button type="submit"
+                                name="action"
+                                value="agregarHabilidad"
+                                formnovalidate
+                                class="btn-black-full"
+                                style="width: auto; padding: 10px 20px;">
+                            Agregar
+                        </button>
+                    </div>
+
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                        <div th:each="hab, stat : *{habilidades}" class="skill-tag-puestos" style="background: #e2e8f0; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; display: flex; align-items: center;">
+                            <span th:text="${hab.nombre}">Java</span>
+                            <input type="hidden" th:field="*{habilidades[__${stat.index}__].id}" />
+                            <input type="hidden" th:field="*{habilidades[__${stat.index}__].nombre}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 20px; margin-top: 40px; justify-content: center; align-items: center;">
+
+                <button type="submit" name="action" value="guardar"
+                        class="btn-black-full"
+                        style="width: auto; padding: 12px 35px; margin: 0;">
+                    Publicar Ahora
+                </button>
+
+                <a th:href="@{/empresa/dashboard}" class="btn-black-full"
+                   style="width: auto; padding: 12px 35px; margin: 0;">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
+</html>

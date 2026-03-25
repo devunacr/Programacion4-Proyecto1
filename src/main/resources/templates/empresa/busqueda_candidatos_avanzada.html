@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Candidatos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body style="background-color: #f8fafc;">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div style="display: flex; max-width: 1200px; margin: 40px auto; gap: 30px; padding: 0 20px;">
+
+    <aside class="filter-sidebar">
+        <h3 style="margin-top: 0; font-size: 1.2rem;">Filtros de Candidatos</h3>
+
+        <form th:action="@{/empresa/busqueda_avanzada_candidatos}" method="get">
+
+            <div class="filter-group">
+                <label>Habilidad técnica</label>
+                <select name="habilidad" class="filter-select">
+                    <option value="">Todas las habilidades</option>
+                    <option th:each="hab : ${todasLasHabilidades}"
+                            th:value="${hab}"
+                            th:text="${hab}"
+                            th:selected="${hab == param.habilidad}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Nivel mínimo:
+                    <span style="font-weight: bold; color: #2563eb;"
+                          th:text="${param.nivelMin != null ? param.nivelMin : '1'}">1</span>
+                </label>
+                <input type="range" name="nivelMin" class="salary-range"
+                       min="1" max="5" step="1"
+                       th:value="${param.nivelMin != null ? param.nivelMin : '1'}">
+            </div>
+
+            <button type="submit" class="btn-filter-search">
+                <span>🔍</span> Aplicar Filtros
+            </button>
+
+            <a th:href="@{/empresa/busqueda_avanzada_candidatos}" class="btn-filter-clear"
+               style="display: block; text-align: center; text-decoration: none; margin-top: 10px; line-height: 2.5;">
+                Limpiar Filtros
+            </a>
+        </form>
+    </aside>
+
+    <main style="flex: 1;">
+        <div th:if="${candidatos != null and !candidatos.isEmpty()}">
+            <h2 style="margin-bottom: 25px;" th:text="${#lists.size(candidatos)} + ' Candidatos encontrados'"></h2>
+
+            <div th:each="c : ${candidatos}" class="job-card-wide">
+                <div class="job-header">
+                    <div>
+                        <h3 th:text="${c.nombre}" style="margin:0;"></h3>
+                        <p style="color: #64748b;" th:text="${c.correo}"></p>
+                    </div>
+                    <div style="text-align: right;">
+                        <a th:href="@{/empresa/busqueda_avanzada_candidatos(verDetalle=${c.id}, texto=${param.texto}, habilidad=${param.habilidad}, nivelMin=${param.nivelMin})}"
+                           class="btn-black-full" style="text-decoration: none; padding: 8px 15px; font-size: 0.8rem;">
+                            Ver Perfil
+                        </a>
+                    </div>
+                </div>
+
+                <div style="margin: 15px 0;">
+                    <p style="font-size: 0.9rem; color: #475569;">
+                        <strong>Teléfono:</strong> <span th:text="${c.telefono}"></span>
+                    </p>
+                </div>
+
+                <p style="font-weight: 700; font-size: 0.85rem; margin-bottom: 10px;">Habilidades:</p>
+                <div class="skills-container">
+                    <span th:each="ho : ${c.habilidadesOferente}" class="skill-tag-puestos">
+                        <span th:text="${ho.habilidad.nombre}"></span>
+                        <small th:text="' (Nivel ' + ${ho.nivel} + ')'"></small>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div th:unless="${candidatos != null and !candidatos.isEmpty()}"
+             style="text-align: center; padding: 60px; background: white; border-radius: 15px; border: 1px solid #eef2f6;">
+            <h2 style="font-size: 2rem; margin: 0;">0 Candidatos</h2>
+            <p style="color: #64748b; font-size: 1.1rem; margin: 10px 0;">No coinciden con tu búsqueda</p>
+        </div>
+    </main>
+</div>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

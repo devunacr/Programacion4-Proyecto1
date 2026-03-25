@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Empresa | Bolsa de Empleo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-bg">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div class="auth-container">
+    <div class="auth-card-wide">
+        <h2>Registrar Empresa</h2>
+        <p class="auth-subtitle">Completa el formulario para registrar tu empresa</p>
+
+        <form th:action="@{/registro/empresa}" th:object="${empresa}" method="post" class="grid-form">
+            <div class="form-group">
+                <label>Nombre de la Empresa *</label>
+                <input type="text" th:field="*{nombre}" required class="filter-input">
+            </div>
+            <div class="form-group">
+                <label>Dirección / Localización *</label>
+                <input type="text" th:field="*{direccion}" required class="filter-input">
+            </div>
+            <div class="form-group">
+                <label>Correo Electrónico *</label>
+                <input type="email" th:field="*{correo}" required class="filter-input">
+            </div>
+            <div class="form-group">
+                <label>Teléfono *</label>
+                <input type="text" th:field="*{telefono}" required class="filter-input">
+            </div>
+            <div class="form-group full-width">
+                <label>Contraseña *</label>
+                <input type="password" th:field="*{password}" required class="filter-input">
+            </div>
+            <div class="full-width">
+                <button type="submit" class="btn-black-full">Registrar Empresa</button>
+            </div>
+        </form>
+
+        <p class="auth-footer-text">¿Ya tienes cuenta? <a th:href="@{/login(rol='Empresa')}">Inicia sesión aquí</a></p>
+
+        <div class="info-note">
+            <p><strong>Nota:</strong> Tu registro será revisado por un administrador antes de ser aprobado.</p>
+        </div>
+    </div>
+</div>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>
