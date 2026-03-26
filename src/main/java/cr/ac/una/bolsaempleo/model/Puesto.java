@@ -13,6 +13,12 @@ public class Puesto {
     private String salario;
     private String titulo;
     private String descripcion;
+    private boolean publico = true;
+    private String fecha = "2026-01-01";
+    private String categoria;
+
+    @Transient
+    private Empresa empresa;
 
     @Transient
     private List<Habilidad> habilidades = new ArrayList<>();
@@ -29,7 +35,6 @@ public class Puesto {
     public void agregarHabilidad(Habilidad habilidad) {
         habilidades.add(habilidad);
     }
-
     public void eliminarHabilidad(Habilidad habilidad) {
         habilidades.remove(habilidad);
     }
@@ -37,7 +42,6 @@ public class Puesto {
     public List<Habilidad> getHabilidades() {
         return habilidades;
     }
-
     public void setHabilidades(List<Habilidad> habilidades) {
         this.habilidades = habilidades;
     }
@@ -53,4 +57,16 @@ public class Puesto {
 
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+
+    public Empresa getEmpresa() { return empresa; }
+    public void setEmpresa(Empresa empresa) { this.empresa = empresa; }
+
+    public boolean isPublico() { return publico; }
+    public void setPublico(boolean publico) { this.publico = publico; }
+
+    public String getFecha() { return fecha; }
+    public void setFecha(String fecha) { this.fecha = fecha; }
+
+    public String getCategoria() { return categoria; }
+    public void setCategoria(String categoria) { this.categoria = categoria; }
 }

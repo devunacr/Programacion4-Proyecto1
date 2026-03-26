@@ -67,17 +67,19 @@ public class EmpresaRepository implements IrepositoryMethods<Empresa> {
 
     @Override
     public Optional<Empresa> buscarPorCorreo(String correo) {
-        String sql = "SELECT id, nombre, direccion, telefono, correo, password " +
-                "FROM empresa WHERE correo = ?";
-        List<Empresa> result = jdbcTemplate.query(sql, (rs, rowNum) -> new Empresa(
-                rs.getString("id"),
-                rs.getString("nombre"),
-                rs.getString("direccion"),
-                rs.getString("correo"),
-                rs.getString("telefono"),
-                rs.getString("descripcion"),
-                rs.getString("password")
-        ), correo);
+        String sql = "SELECT id, nombre, direccion, correo, telefono, descripcion, password FROM empresa WHERE correo = ?";
+
+        List<Empresa> result = jdbcTemplate.query(sql, (rs, rowNum) -> {
+            Empresa e = new Empresa();
+            e.setId(String.valueOf(rs.getInt("id")));
+            e.setNombre(rs.getString("nombre"));
+            e.setDireccion(rs.getString("direccion"));
+            e.setCorreo(rs.getString("correo"));
+            e.setTelefono(rs.getString("telefono"));
+            e.setDescripcion(rs.getString("descripcion")); // Ahora sí lo encontrará
+            e.setPassword(rs.getString("password"));
+            return e;
+        }, correo);
 
         return result.stream().findFirst();
     }
@@ -95,5 +97,13 @@ public class EmpresaRepository implements IrepositoryMethods<Empresa> {
                 null
         ), nombre);
         return result.stream().findFirst();
+    }
+
+    public long contarTodos() {
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM empresa", Long.class);
+    }
+
+    public List<Empresa> buscarTodos() {
+        return buscarATodos();
     }
 }

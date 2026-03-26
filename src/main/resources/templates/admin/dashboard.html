@@ -1,12 +1,162 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><title>Admin Dashboard</title></head>
-<body>
-<h1>Panel de Administración</h1>
-<nav>
-    <a href="/admin/empresas">Ver Empresas</a> |
-    <a href="/admin/oferentes">Ver Oferentes</a> |
-    <a href="/admin/caracteristicas">Ver Características</a>
-</nav>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración | Bolsa de Empleo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main class="admin-main">
+    <div class="admin-header">
+        <h1>Panel de Administración</h1>
+        <p>Gestión centralizada del sistema</p>
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <span class="stat-label">Total Puestos</span>
+            <h2 class="stat-value" th:text="${totalPuestos}">0</h2>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Puestos Activos</span>
+            <h2 class="stat-value" th:text="${puestosActivos}">0</h2>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Total Oferentes</span>
+            <h2 class="stat-value" th:text="${totalOferentes}">0</h2>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Total Empresas</span>
+            <h2 class="stat-value" th:text="${totalEmpresas}">0</h2>
+        </div>
+    </div>
+
+    <nav class="admin-tabs">
+        <a th:href="@{/admin/dashboard(tab='oferentes')}"
+           th:classappend="${activeTab == 'oferentes'} ? 'active' : ''" class="tab-item">Oferentes</a>
+
+        <a th:href="@{/admin/dashboard(tab='empresas')}"
+           th:classappend="${activeTab == 'empresas'} ? 'active' : ''" class="tab-item">Empresas</a>
+
+        <a th:href="@{/admin/dashboard(tab='caracteristicas')}"
+           th:classappend="${activeTab == 'caracteristicas'} ? 'active' : ''" class="tab-item">Características</a>
+
+        <a th:href="@{/admin/dashboard(tab='reportes')}"
+           th:classappend="${activeTab == 'reportes'} ? 'active' : ''" class="tab-item">Reportes</a>
+    </nav>
+
+    <div th:if="${activeTab == 'oferentes'}">
+        <section class="admin-content-box">
+            <div class="content-header">
+                <h3>Candidatos Registrados</h3>
+            </div>
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                    <th>Estado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="o : ${oferentes}">
+                    <td th:text="${o.nombre + ' ' + o.apellidos}" class="font-bold"></td>
+                    <td th:text="${o.correoPersonal}"></td>
+                    <td th:text="${o.telefono}"></td>
+                    <td>
+                                <span class="badge" th:text="${o.estado}"
+                                      th:classappend="${o.estado == 'APROBADO'} ? 'badge-success' : 'badge-warning'"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="admin-content-box" style="margin-top: 2rem;">
+            <div class="content-header">
+                <h3>Pendientes de Aprobación</h3>
+            </div>
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p : ${oferentesPendientes}">
+                    <td th:text="${p.nombre + ' ' + p.apellidos}"></td>
+                    <td class="actions-cell">
+                        <form th:action="@{/admin/aprobar-oferente/{id}(id=${p.id})}" method="post" style="display:inline;">
+                            <button type="submit" class="btn-approve">Aprobar</button>
+                        </form>
+                        <form th:action="@{/admin/rechazar-oferente/{id}(id=${p.id})}" method="post" style="display:inline;">
+                            <button type="submit" class="btn-reject">Rechazar</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(oferentesPendientes)}">
+                    <td colspan="2" style="text-align: center; padding: 20px;">No hay solicitudes pendientes.</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <div th:if="${activeTab == 'empresas'}" class="admin-content-box">
+        <div class="content-header">
+            <h3>Directorio de Empresas</h3>
+        </div>
+        <table class="data-table">
+            <thead>
+            <tr>
+                <th>Empresa</th>
+                <th>Cédula Jurídica</th>
+                <th>Correo de Contacto</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="e : ${empresas}">
+                <td th:text="${e.nombre}" class="font-bold"></td>
+                <td th:text="${e.id}"></td>
+                <td th:text="${e.correo}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:if="${activeTab == 'caracteristicas'}" class="admin-content-box">
+        <div class="content-header">
+            <h3>Configuración de Sistema</h3>
+            <p>Próximamente: Gestión de Habilidades y Categorías de Puestos.</p>
+        </div>
+    </div>
+
+    <div th:if="${activeTab == 'reportes'}" class="admin-content-box">
+        <div class="content-header">
+            <h3>Generación de Reportes</h3>
+            <p>Genera reportes PDF de puestos solicitados</p>
+        </div>
+        <form class="report-form">
+            <div class="form-group">
+                <label>Mes</label>
+                <select name="mes" class="form-control">
+                    <option value="3">Marzo</option>
+                </select>
+            </div>
+            <button type="button" class="btn-report">Generar Reporte PDF</button>
+        </form>
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
 </body>
 </html>
