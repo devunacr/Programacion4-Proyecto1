@@ -11,3 +11,5 @@ public class Main {
 }
 
 //version funcional 26 marzo 00:12
+
+//comando para arrancar en local: mvn spring-boot:run -Dspring-boot.run.profiles=dev
