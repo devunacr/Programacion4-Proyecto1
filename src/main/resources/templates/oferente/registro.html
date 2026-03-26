@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Oferente</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main>
+    <div th:replace="~{fragments/layout :: alertas}"></div>
+
+    <div class="form-card">
+        <h2>Registro de Oferente</h2>
+        <form th:action="@{/oferente/registro}" method="post" th:object="${oferenteDTO}">
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" th:field="*{nombre}" required>
+                <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" style="color:red;font-size:0.85rem"></span>
+            </div>
+            <div class="form-group">
+                <label>Apellidos</label>
+                <input type="text" th:field="*{apellidos}" required>
+                <span th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}" style="color:red;font-size:0.85rem"></span>
+            </div>
+            <div class="form-group">
+                <label>Nacionalidad</label>
+                <input type="text" th:field="*{nacionalidad}" required>
+            </div>
+            <div class="form-group">
+                <label>Teléfono</label>
+                <input type="text" name="telefono" required>
+            </div>
+            <div class="form-group">
+                <label>Correo</label>
+                <input type="email" th:field="*{correopersonal}" required>
+                <span th:if="${#fields.hasErrors('correopersonal')}" th:errors="*{correopersonal}" style="color:red;font-size:0.85rem"></span>
+            </div>
+            <div class="form-group">
+                <label>Residencia</label>
+                <input type="text" th:field="*{residencia}" required>
+            </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" th:field="*{password}" required>
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red;font-size:0.85rem"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Registrar</button>
+            <a th:href="@{/oferente/login}" style="margin-left:12px">¿Ya tienes cuenta? Entrar</a>
+        </form>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

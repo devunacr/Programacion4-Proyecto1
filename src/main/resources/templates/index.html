@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bolsa de Empleo</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main>
+    <div th:replace="~{fragments/layout :: alertas}"></div>
+
+    <p class="section-title">Últimas ofertas de empleo</p>
+
+    <div th:if="${#lists.isEmpty(puestos)}">
+        <p class="alert alert-info">No hay puestos publicados aún.</p>
+    </div>
+
+    <div th:each="puesto : ${puestos}" class="puesto-card">
+        <div class="info">
+            <strong th:text="${puesto.titulo}"></strong>
+            <p th:text="'Empresa: ' + ${puesto.empresa.nombre}"></p>
+            <p th:text="'Salario: ₡' + ${puesto.salario}"></p>
+        </div>
+        <a th:href="@{/puesto/{id}(id=${puesto.id})}" class="btn btn-primary">Ver detalle</a>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

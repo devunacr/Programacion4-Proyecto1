@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<header th:fragment="header">
+    <h1>Bolsa de Empleo</h1>
+    <nav>
+        <a th:href="@{/}">Inicio</a>
+        <a th:href="@{/empresa/login}">Empresa</a>
+        <a th:href="@{/oferente/login}">Oferente</a>
+        <a th:href="@{/admin/login}">Admin</a>
+    </nav>
+</header>
+
+<footer th:fragment="footer">
+    <p>Bolsa de Empleo &copy; 2026 &mdash; Universidad Nacional &mdash; Programación IV</p>
+    <p>Contacto: <a href="mailto:info@bolsaempleo.cr" style="color:#9bc">info@bolsaempleo.cr</a></p>
+</footer>
+
+<div th:fragment="alertas">
+    <div th:if="${error}"   class="alert alert-error"   th:text="${error}"></div>
+    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+    <div th:if="${info}"    class="alert alert-info"    th:text="${info}"></div>
+</div>
+
+</html>

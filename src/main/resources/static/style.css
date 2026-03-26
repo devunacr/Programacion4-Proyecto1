@@ -1,0 +1,99 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    background: #f5f5f5;
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a { color: #1a5276; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Layout ── */
+header {
+    background: #1a5276;
+    color: #fff;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+header h1 { font-size: 1.2rem; letter-spacing: 1px; }
+header nav a { color: #cde; margin-left: 18px; font-size: 0.95rem; }
+header nav a:hover { color: #fff; text-decoration: underline; }
+
+main { flex: 1; padding: 28px 24px; max-width: 960px; width: 100%; margin: 0 auto; }
+
+footer {
+    background: #1a5276;
+    color: #cde;
+    text-align: center;
+    padding: 10px 24px;
+    font-size: 0.85rem;
+}
+
+/* ── Formularios ── */
+.form-card {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 28px 32px;
+    max-width: 480px;
+    margin: 0 auto;
+}
+.form-card h2 { margin-bottom: 20px; font-size: 1.1rem; }
+
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; margin-bottom: 4px; font-weight: bold; font-size: 0.9rem; }
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #aaa;
+    font-size: 0.95rem;
+    background: #fff;
+}
+.form-group textarea { resize: vertical; min-height: 80px; }
+
+/* ── Botones ── */
+.btn { display: inline-block; padding: 7px 18px; border: none; cursor: pointer; font-size: 0.9rem; }
+.btn-primary  { background: #1a5276; color: #fff; }
+.btn-danger   { background: #922b21; color: #fff; }
+.btn-success  { background: #1e8449; color: #fff; }
+.btn-secondary{ background: #666;    color: #fff; }
+.btn:hover { opacity: 0.88; }
+
+/* ── Tablas ── */
+table { width: 100%; border-collapse: collapse; background: #fff; margin-top: 16px; }
+th { background: #1a5276; color: #fff; padding: 9px 12px; text-align: left; font-size: 0.9rem; }
+td { padding: 8px 12px; border-bottom: 1px solid #ddd; font-size: 0.9rem; }
+tr:last-child td { border-bottom: none; }
+
+/* ── Alertas ── */
+.alert { padding: 10px 14px; margin-bottom: 16px; border: 1px solid; font-size: 0.9rem; }
+.alert-error   { background: #fadbd8; border-color: #e74c3c; color: #922b21; }
+.alert-success { background: #d5f5e3; border-color: #27ae60; color: #1e8449; }
+.alert-info    { background: #d6eaf8; border-color: #2980b9; color: #1a5276; }
+
+/* ── Dashboard ── */
+.dash-nav { margin-bottom: 22px; border-bottom: 2px solid #1a5276; padding-bottom: 10px; }
+.dash-nav a { margin-right: 18px; font-weight: bold; color: #1a5276; }
+
+.section-title { font-size: 1rem; font-weight: bold; margin: 20px 0 8px; border-left: 4px solid #1a5276; padding-left: 8px; }
+
+/* ── Puestos públicos ── */
+.puesto-card {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.puesto-card .info p { margin: 2px 0; font-size: 0.9rem; color: #444; }
+.puesto-card .info strong { font-size: 1rem; }

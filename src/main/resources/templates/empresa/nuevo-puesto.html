@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Publicar Puesto</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main>
+    <div th:replace="~{fragments/layout :: alertas}"></div>
+
+    <div class="form-card" style="max-width:560px">
+        <h2>Publicar Puesto</h2>
+        <form th:action="@{/empresa/puesto/publicar}" method="post" th:object="${puestoDTO}">
+            <div class="form-group">
+                <label>Título</label>
+                <input type="text" th:field="*{titulo}" required>
+                <span th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" style="color:red;font-size:0.85rem"></span>
+            </div>
+            <div class="form-group">
+                <label>Descripción</label>
+                <textarea th:field="*{descripcion}" required></textarea>
+                <span th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}" style="color:red;font-size:0.85rem"></span>
+            </div>
+            <div class="form-group">
+                <label>Salario (₡)</label>
+                <input type="number" step="0.01" th:field="*{salario}" required>
+                <span th:if="${#fields.hasErrors('salario')}" th:errors="*{salario}" style="color:red;font-size:0.85rem"></span>
+            </div>
+            <div class="form-group">
+                <label>Tipo de publicación</label>
+                <select th:field="*{tipoPublicacion}">
+                    <option value="publico">Público</option>
+                    <option value="privado">Privado</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Publicar</button>
+            <a th:href="@{/empresa/dashboard}" style="margin-left:12px">Cancelar</a>
+        </form>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

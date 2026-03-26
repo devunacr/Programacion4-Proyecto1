@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${puesto.titulo}">Detalle del Puesto</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main>
+    <a th:href="@{/}" style="font-size:0.9rem">← Volver al inicio</a>
+
+    <div style="background:#fff; border:1px solid #ccc; padding:24px; margin-top:16px">
+        <h2 th:text="${puesto.titulo}" style="margin-bottom:12px"></h2>
+
+        <p><strong>Empresa:</strong> <span th:text="${puesto.empresa.nombre}"></span></p>
+        <p><strong>Salario:</strong> ₡<span th:text="${puesto.salario}"></span></p>
+        <p><strong>Tipo:</strong> <span th:text="${puesto.tipoPublicacion}"></span></p>
+        <p style="margin-top:12px" th:text="${puesto.descripcion}"></p>
+
+        <div th:if="${!#lists.isEmpty(puesto.habilidades)}" style="margin-top:16px">
+            <p class="section-title">Habilidades requeridas</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Habilidad</th>
+                        <th>Nivel mínimo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="h : ${puesto.habilidades}">
+                        <td th:text="${h.caracteristica.nombre}"></td>
+                        <td th:text="${h.nivel}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

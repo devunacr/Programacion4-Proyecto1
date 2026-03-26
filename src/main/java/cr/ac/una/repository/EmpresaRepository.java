@@ -1,0 +1,16 @@
+package cr.ac.una.repository;
+
+import cr.ac.una.model.Empresa;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
+
+    Optional<Empresa> findByCorreo(String correo);
+
+    List<Empresa> findByAprobado(Boolean aprobado);
+}

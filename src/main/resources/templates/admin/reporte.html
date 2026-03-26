@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte Mensual</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main>
+    <div th:replace="~{fragments/layout :: alertas}"></div>
+
+    <div class="dash-nav">
+        <a th:href="@{/admin/dashboard}">Empresas pendientes</a>
+        <a th:href="@{/admin/oferentes}">Oferentes pendientes</a>
+        <a th:href="@{/admin/caracteristicas}">Características</a>
+        <a th:href="@{/admin/reporte}">Reportes</a>
+        <a th:href="@{/admin/logout}" class="btn btn-secondary" style="float:right">Cerrar sesión</a>
+    </div>
+
+    <p class="section-title">Generar Reporte Mensual</p>
+    <form th:action="@{/admin/reporte}" method="get" style="max-width:320px">
+        <div class="form-group">
+            <label>Mes</label>
+            <input type="month" name="mes" th:value="${mesSeleccionado}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Generar</button>
+    </form>
+
+
+    <div th:if="${reporte != null}">
+        <p class="section-title">Resultados para: <span th:text="${reporte.mes}"></span></p>
+
+        <table style="max-width:480px">
+            <tbody>
+                <tr>
+                    <td>Puestos publicados en el mes</td>
+                    <td><strong th:text="${reporte.puestosPublicadosEnElMes}"></strong></td>
+                </tr>
+                <tr>
+                    <td>Puestos activos (total)</td>
+                    <td><strong th:text="${reporte.puestosActivos}"></strong></td>
+                </tr>
+                <tr>
+                    <td>Total de empresas registradas</td>
+                    <td><strong th:text="${reporte.totalEmpresas}"></strong></td>
+                </tr>
+                <tr>
+                    <td>Empresas pendientes de aprobación</td>
+                    <td><strong th:text="${reporte.empresasPendientesAprobacion}"></strong></td>
+                </tr>
+                <tr>
+                    <td>Total de oferentes registrados</td>
+                    <td><strong th:text="${reporte.totalOferentes}"></strong></td>
+                </tr>
+                <tr>
+                    <td>Oferentes pendientes de aprobación</td>
+                    <td><strong th:text="${reporte.oferentesPendientesAprobacion}"></strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <form th:action="@{/admin/reporte/pdf}" method="get" style="margin-top:16px">
+            <input type="hidden" name="mes" th:value="${reporte.mes}">
+            <button type="submit" class="btn btn-secondary">Descargar PDF</button>
+        </form>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>
