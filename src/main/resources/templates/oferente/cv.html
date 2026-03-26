@@ -1,8 +1,64 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Currículum</title></head>
+<head>
+    <title>Mi CV</title>
+</head>
+
 <body>
-<h2>Currículum del Oferente</h2>
-<p>Aquí se mostrará el CV cargado.</p>
+
+<div class="navegador">
+    <div>
+        <strong>Bolsa de Empleo</strong>
+        <a href="/oferente/dashboard">Dashboard</a>
+        <a href="/oferente/habilidades">Mis habilidades</a>
+        <a href="/oferente/cv">Mi CV</a>
+    </div>
+
+    <div>
+        <a href="/logout">Salir</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <h2>Mi Currículum</h2>
+
+    <!-- Mensaje -->
+    <div th:if="${mensaje}" class="msg">
+        <span th:text="${mensaje}"></span>
+    </div>
+
+    <!-- Subir CV -->
+    <div class="card">
+        <h3>Subir nuevo CV</h3>
+
+        <form th:action="@{/oferente/cv/subir}" method="post" enctype="multipart/form-data">
+
+            <label>Seleccionar archivo (PDF)</label><br>
+            <input type="file" name="archivo" accept="application/pdf" required>
+
+            <br>
+            <button type="submit" class="btn">Subir CV</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3>CV actual</h3>
+
+        <div th:if="${cvUrl != null}">
+            <p>Ya tienes un CV cargado.</p>
+
+            <a th:href="${cvUrl}" target="_blank" class="btn">
+                Ver CV
+            </a>
+        </div>
+
+        <div th:if="${cvUrl == null}">
+            <p>No has subido ningún CV.</p>
+        </div>
+    </div>
+
+</div>
+
 </body>
 </html>

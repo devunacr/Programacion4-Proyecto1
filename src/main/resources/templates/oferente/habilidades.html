@@ -1,10 +1,94 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Habilidades</title></head>
+<head>
+    <title>Mis Habilidades</title>
+
+</head>
+
 <body>
-<h2>Habilidades del Oferente</h2>
-<ul>
-    <li th:each="h : ${habilidades}" th:text="${h.nombre}"></li>
-</ul>
+
+<div class="navegador">
+    <div>
+        <strong>Bolsa de Empleo</strong>
+        <a href="/oferente/dashboard">Dashboard</a>
+        <a href="/oferente/habilidades">Mis habilidades</a>
+        <a href="/oferente/cv">Mi CV</a>
+    </div>
+
+    <div>
+        <span th:text="${#httpServletRequest.remoteUser}"></span>
+        <a href="/logout">Salir</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Mis habilidades</h2>
+
+    <div class="grid">
+
+        <!-- IZQUIERDA -->
+        <div class="card">
+            <h3>Características</h3>
+
+            <table>
+                <tr>
+                    <th>Característica</th>
+                    <th>Nivel</th>
+                </tr>
+
+                <tr th:each="h : ${habilidades}">
+                    <td th:text="${h.nombre}"></td>
+                    <td th:text="${h.nivel}"></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- CENTRO -->
+        <div class="card">
+            <h3>Ruta</h3>
+
+            <div>
+                <span class="tag">Java</span>
+                <span class="tag">Testing</span>
+                <span class="tag">JUnit</span>
+            </div>
+
+            <h3>Subcategorías</h3>
+
+            <table>
+                <tr>
+                    <td>Assertions</td>
+                    <td><button class="btn btn-danger btn-small">Eliminar</button></td>
+                </tr>
+                <tr>
+                    <td>Test cases</td>
+                    <td><button class="btn btn-danger btn-small">Eliminar</button></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- DERECHA -->
+        <div class="card-white">
+            <h3>Agregar Habilidad</h3>
+
+            <form th:action="@{/oferente/habilidades/agregar}" method="post">
+
+                <label>Caracteristica</label>
+                <select name="nombre">
+                    <option>Test cases</option>
+                    <option>Assertions</option>
+                    <option>Java</option>
+                </select>
+
+                <label>Nivel (1 - 5)</label>
+                <input type="number" name="nivel" min="1" max="5">
+
+                <button type="submit" class="btn">Agregar</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
 </body>
 </html>
