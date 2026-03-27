@@ -33,13 +33,6 @@ body {
     flex-direction: column;
 }
 
-body {
-    background-image: url('/static/imagenes/fila.jpg'); /* ruta de tu imagen */
-    background-size: cover;       /* cubre toda la pantalla */
-    background-position: center;  /* centra la imagen */
-    background-repeat: no-repeat; /* no se repite */
-}
-
 main {
     flex: 1;
     max-width: 1200px;
