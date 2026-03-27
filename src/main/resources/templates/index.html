@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Login - Bolsa de Empleo</title>
     <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" th:href="@{/modoOscutoStyle.css}">
 
 </head>
 <body>
@@ -35,27 +36,41 @@
                 <p th:text="'Empresa: ' + ${puesto.empresa.nombre}"></p>
                 <p th:text="'Salario: ₡' + ${puesto.salario}"></p>
             </div>
-            <a th:href="@{/puesto/{id}(id=${puesto.id})}" class="btn">Ver detalle</a>
+            <a th:href="@{/puesto/{id}(id=${puesto.id})}" class="btn">Detalles</a>
         </div>
     </div>
 
     <!-- cosas adicionales -->
-    <div class="columna">
+    <div class="columna card">
         <h2>Información</h2>
-        <p>Aquí puedes colocar noticias, tips de empleo o cualquier información adicional.</p>
+        <p>En nuestra plataforma de Bolsa de Empleo, conectamos talento con oportunidades reales.
+            Aquí podrás explorar ofertas laborales actualizadas, mejorar tu perfil profesional y
+            acceder a recursos que te ayudarán a destacar en el mercado laboral.
+            Nuestro objetivo es facilitar el proceso de búsqueda de empleo tanto para oferentes como para empresas,
+            brindando un espacio confiable, ágil y accesible para todos.
+        </p>
 
-        <div class="video" >
-            <h2>Información</h2>
-            <p>Aquí puedes colocar noticias, tips de empleo o cualquier información adicional.</p>
-
+        <!-- info de video -->
+        <div class="video">
+            <h3>Cómo mejorar tu CV</h3>
+            <iframe
+                    width="100%"
+                    height="250"
+                    src="https://www.youtube.com/embed/BBGvr83hySg"
+                    title="YouTube video player"
+                    allowfullscreen>
+            </iframe>
         </div>
+
+        <!-- PUBLICIDAD -->
         <div class="publicidad">
-            <h2>Información</h2>
-            <p>Aquí puedes colocar noticias, tips de empleo o cualquier información adicional.</p>
-
+            <h3>Publicidad</h3>
+            <a href="#">
+                <img src="/imagenes/job.jpg" alt="Publicidad">
+            </a>
         </div>
-
     </div>
+
 </main>
 
 <footer th:replace="~{fragments/layout :: footer}"></footer>
