@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${oferente.nombre + ' ' + oferente.apellidos}">Detalle Candidato</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main>
+    <div th:replace="~{fragments/layout :: alertas}"></div>
+
+    <a href="javascript:history.back()" style="font-size:0.9rem">← Volver a candidatos</a>
+
+    <div style="background:#fff; border:1px solid #ccc; padding:24px; margin-top:16px">
+        <h2 th:text="${oferente.nombre + ' ' + oferente.apellidos}" style="margin-bottom:12px"></h2>
+
+        <p><strong>Cédula:</strong> <span th:text="${oferente.id}"></span></p>
+        <p><strong>Correo:</strong> <span th:text="${oferente.correopersonal}"></span></p>
+        <p><strong>Teléfono:</strong> <span th:text="${oferente.telefono}"></span></p>
+        <p><strong>Residencia:</strong> <span th:text="${oferente.residencia}"></span></p>
+        <p><strong>Nacionalidad:</strong> <span th:text="${oferente.nacionalidad}"></span></p>
+
+        <div th:if="${!#lists.isEmpty(oferente.habilidades)}" style="margin-top:16px">
+            <p class="section-title">Habilidades</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Habilidad</th>
+                        <th>Nivel</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="h : ${oferente.habilidades}">
+                        <td th:text="${h.caracteristica.nombre}"></td>
+                        <td th:text="${h.nivel}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="margin-top:20px">
+            <a th:if="${oferente.cv != null}"
+               th:href="@{/empresa/candidato/{id}/cv(id=${oferente.id})}"
+               class="btn">Descargar CV (PDF)</a>
+            <span th:unless="${oferente.cv != null}" class="alert alert-info"
+                  style="display:inline-block; padding:6px 12px">
+                Este candidato no ha subido su CV.
+            </span>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

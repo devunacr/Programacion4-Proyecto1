@@ -11,11 +11,12 @@ import java.util.List;
 @AllArgsConstructor
 public class CandidatoResultadoDTO {
 
-    private Long oferenteId;
+    private String oferenteId;
     private String nombre;
     private String apellidos;
     private String correopersonal;
     private String residencia;
     private List<HabilidadDTO> habilidades;
     private Double porcentajeCoincidencia; // 0.0 - 100.0
+    private boolean tieneCv;
 }
