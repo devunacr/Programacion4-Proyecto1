@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login - Bolsa de Empleo</title>
+    <title>Bolsa de Empleo</title>
     <link rel="stylesheet" th:href="@{/style.css}">
 
 </head>
@@ -11,16 +11,6 @@
 <header th:replace="~{fragments/layout :: header}"></header>
 
 <main>
-    <!-- Izq: login -->
-    <div class="columna">
-        <h2>Iniciar sesión</h2>
-        <form class="login-form" th:action="@{/admin/login}" method="post">
-            <input type="text" name="username" placeholder="Usuario" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <button type="submit">Entrar</button>
-        </form>
-    </div>
-
     <!-- Ofertas -->
     <div class="columna">
         <p class="section-title">Últimas ofertas de empleo</p>

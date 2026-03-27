@@ -1,16 +1,21 @@
 package cr.ac.una.controller;
 
+import cr.ac.una.dto.CandidatoResultadoDTO;
 import cr.ac.una.dto.EmpresaRegistroDTO;
 import cr.ac.una.dto.PuestoPublicacionDTO;
 import cr.ac.una.model.Empresa;
 import cr.ac.una.model.Oferente;
 import cr.ac.una.model.Puesto;
+import cr.ac.una.repository.CaracteristicaRepository;
 import cr.ac.una.service.EmpresaService;
 import cr.ac.una.service.OferenteService;
 import cr.ac.una.service.PuestoService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +33,7 @@ public class EmpresaController {
     private final EmpresaService empresaService;
     private final PuestoService puestoService;
     private final OferenteService oferenteService;
+    private final CaracteristicaRepository caracteristicaRepository;
 
 
     @GetMapping("/registro")
@@ -111,7 +117,19 @@ public class EmpresaController {
     @GetMapping("/puesto/nuevo")
     public String nuevoPuestoForm(HttpSession session, Model model) {
         if (session.getAttribute("empresaId") == null) return "redirect:/empresa/login";
-        model.addAttribute("puestoDTO", new PuestoPublicacionDTO());
+        PuestoPublicacionDTO dto = new PuestoPublicacionDTO();
+        List<cr.ac.una.model.Caracteristica> caracteristicas = caracteristicaRepository.findAll();
+        // pre-poblar habilidades con una entrada por caracteristica (nivel 0 = no requerida)
+        List<cr.ac.una.dto.HabilidadDTO> habilidades = new java.util.ArrayList<>();
+        for (cr.ac.una.model.Caracteristica c : caracteristicas) {
+            cr.ac.una.dto.HabilidadDTO h = new cr.ac.una.dto.HabilidadDTO();
+            h.setCaracteristicaId(c.getId());
+            h.setNombreCaracteristica(c.getNombre());
+            h.setNivel(0);
+            habilidades.add(h);
+        }
+        dto.setHabilidades(habilidades);
+        model.addAttribute("puestoDTO", dto);
         return "empresa/nuevo-puesto";
     }
 
@@ -131,7 +149,7 @@ public class EmpresaController {
             puesto.setDescripcion(dto.getDescripcion());
             puesto.setSalario(dto.getSalario());
             puesto.setTipoPublicacion(dto.getTipoPublicacion());
-            puestoService.publicarPuesto(puesto, empresaId);
+            puestoService.publicarPuesto(puesto, empresaId, dto.getHabilidades());
             ra.addFlashAttribute("success", "Puesto publicado correctamente.");
         } catch (Exception e) {
             ra.addFlashAttribute("error", e.getMessage());
@@ -157,19 +175,45 @@ public class EmpresaController {
 
     @GetMapping("/puesto/candidatos/{id}")
     public String candidatos(@PathVariable Long id,
-                             @RequestParam(defaultValue = "1") Integer nivelMinimo,
                              HttpSession session,
                              Model model) {
         if (session.getAttribute("empresaId") == null) return "redirect:/empresa/login";
 
         Puesto puesto = puestoService.buscarPorId(id);
-        List<Oferente> candidatos = (puesto.getHabilidades() == null || puesto.getHabilidades().isEmpty())
-                ? Collections.emptyList()
-                : oferenteService.buscarCandidatos(
-                        puesto.getHabilidades().get(0).getCaracteristica().getId(), nivelMinimo);
+        List<CandidatoResultadoDTO> candidatos = puestoService.calcularCandidatos(id);
 
         model.addAttribute("puesto", puesto);
         model.addAttribute("candidatos", candidatos);
         return "empresa/candidatos";
+    }
+
+
+    @GetMapping("/candidato/{oferenteId}")
+    public String detalleCandidato(@PathVariable String oferenteId,
+                                   HttpSession session,
+                                   Model model) {
+        if (session.getAttribute("empresaId") == null) return "redirect:/empresa/login";
+
+        Oferente oferente = oferenteService.buscarPorId(oferenteId);
+        model.addAttribute("oferente", oferente);
+        return "empresa/candidato-detalle";
+    }
+
+
+    @GetMapping("/candidato/{oferenteId}/cv")
+    public ResponseEntity<byte[]> descargarCv(@PathVariable String oferenteId,
+                                              HttpSession session) {
+        if (session.getAttribute("empresaId") == null)
+            return ResponseEntity.status(302).header(HttpHeaders.LOCATION, "/empresa/login").build();
+
+        Oferente oferente = oferenteService.buscarPorId(oferenteId);
+        if (oferente.getCv() == null || oferente.getCv().length == 0)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_PDF)
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"cv-" + oferenteId + ".pdf\"")
+                .body(oferente.getCv());
     }
 }

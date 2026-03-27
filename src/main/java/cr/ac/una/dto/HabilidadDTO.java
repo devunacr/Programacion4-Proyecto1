@@ -13,8 +13,7 @@ public class HabilidadDTO {
 
     private String nombreCaracteristica;
 
-    @NotNull(message = "El nivel es obligatorio.")
-    @Min(value = 1, message = "El nivel mínimo es 1.")
+    @Min(value = 0, message = "El nivel mínimo es 0.")
     @Max(value = 5, message = "El nivel máximo es 5.")
     private Integer nivel;
 }

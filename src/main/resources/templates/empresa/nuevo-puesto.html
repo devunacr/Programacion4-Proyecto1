@@ -37,6 +37,37 @@
                     <option value="privado">Privado</option>
                 </select>
             </div>
+
+            <div class="form-group" th:if="${puestoDTO.habilidades != null and !puestoDTO.habilidades.isEmpty()}">
+                <label>Habilidades requeridas <small style="font-weight:normal">(nivel 0 = no requerida)</small></label>
+                <table style="width:100%; margin-top:6px">
+                    <thead>
+                        <tr><th>Habilidad</th><th>Nivel mínimo</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="h, i : *{habilidades}">
+                            <td>
+                                <input type="hidden" th:name="'habilidades[' + ${i.index} + '].caracteristicaId'"
+                                       th:value="*{habilidades[__${i.index}__].caracteristicaId}">
+                                <input type="hidden" th:name="'habilidades[' + ${i.index} + '].nombreCaracteristica'"
+                                       th:value="*{habilidades[__${i.index}__].nombreCaracteristica}">
+                                <span th:text="*{habilidades[__${i.index}__].nombreCaracteristica}"></span>
+                            </td>
+                            <td>
+                                <select th:name="'habilidades[' + ${i.index} + '].nivel'">
+                                    <option value="0">0 - No requerida</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <button type="submit" class="btn btn-primary">Publicar</button>
             <a th:href="@{/empresa/dashboard}" style="margin-left:12px">Cancelar</a>
         </form>

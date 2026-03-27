@@ -25,18 +25,24 @@
     <table th:if="${!#lists.isEmpty(candidatos)}">
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Residencia</th>
-                <th>Coincidencia</th>
+                <th>Oferente</th>
+                <th>Requisitos cumplidos</th>
+                <th>% Coincidencia</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="c : ${candidatos}">
                 <td th:text="${c.nombre + ' ' + c.apellidos}"></td>
-                <td th:text="${c.correopersonal}"></td>
-                <td th:text="${c.residencia}"></td>
+                <td>
+                    <span th:each="h, iter : ${c.habilidades}">
+                        <span th:text="${h.nombreCaracteristica + ' (niv.' + h.nivel + ')' + (!iter.last ? ', ' : '')}"></span>
+                    </span>
+                </td>
                 <td th:text="${c.porcentajeCoincidencia + '%'}"></td>
+                <td>
+                    <a th:href="@{/empresa/candidato/{id}(id=${c.oferenteId})}" class="btn">Ver detalle</a>
+                </td>
             </tr>
         </tbody>
     </table>
