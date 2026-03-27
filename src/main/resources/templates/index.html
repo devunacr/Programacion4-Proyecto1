@@ -2,35 +2,63 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Bolsa de Empleo</title>
+    <title>Login - Bolsa de Empleo</title>
     <link rel="stylesheet" th:href="@{/style.css}">
-</head>
 
+</head>
 <body>
 
 <header th:replace="~{fragments/layout :: header}"></header>
 
 <main>
-    <div th:replace="~{fragments/layout :: alertas}"></div>
-
-    <p class="section-title">Últimas ofertas de empleo</p>
-
-    <div th:if="${#lists.isEmpty(puestos)}">
-        <p class="alert alert-info">No hay puestos publicados aún.</p>
+    <!-- Izq: login -->
+    <div class="columna">
+        <h2>Iniciar sesión</h2>
+        <form class="login-form" th:action="@{/admin/login}" method="post">
+            <input type="text" name="username" placeholder="Usuario" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit">Entrar</button>
+        </form>
     </div>
 
-    <div th:each="puesto : ${puestos}" class="puesto-card">
-        <div class="info">
-            <strong th:text="${puesto.titulo}"></strong>
-            <p th:text="'Empresa: ' + ${puesto.empresa.nombre}"></p>
-            <p th:text="'Salario: ₡' + ${puesto.salario}"></p>
+    <!-- Ofertas -->
+    <div class="columna">
+        <p class="section-title">Últimas ofertas de empleo</p>
+
+        <div th:if="${#lists.isEmpty(puestos)}">
+            <div class="alert alert-info">No hay puestos publicados aún.</div>
         </div>
-        <a th:href="@{/puesto/{id}(id=${puesto.id})}" class="btn">Ver detalle</a>
+
+        <div th:each="puesto : ${puestos}" class="puesto-card">
+            <div class="info">
+                <strong th:text="${puesto.titulo}"></strong>
+                <p th:text="'Empresa: ' + ${puesto.empresa.nombre}"></p>
+                <p th:text="'Salario: ₡' + ${puesto.salario}"></p>
+            </div>
+            <a th:href="@{/puesto/{id}(id=${puesto.id})}" class="btn">Ver detalle</a>
+        </div>
+    </div>
+
+    <!-- cosas adicionales -->
+    <div class="columna">
+        <h2>Información</h2>
+        <p>Aquí puedes colocar noticias, tips de empleo o cualquier información adicional.</p>
+
+        <div class="video" >
+            <h2>Información</h2>
+            <p>Aquí puedes colocar noticias, tips de empleo o cualquier información adicional.</p>
+
+        </div>
+        <div class="publicidad">
+            <h2>Información</h2>
+            <p>Aquí puedes colocar noticias, tips de empleo o cualquier información adicional.</p>
+
+        </div>
+
     </div>
 </main>
 
 <footer th:replace="~{fragments/layout :: footer}"></footer>
 
 </body>
-
 </html>

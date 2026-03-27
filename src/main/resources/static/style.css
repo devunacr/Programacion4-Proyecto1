@@ -1,12 +1,8 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-/**fuente de google para las letras/
- */
-
 
 /* ================================
-   creacion de varibles  */
-
+   VARIABLES GLOBALES
+================================ */
 :root {
     --bg-light: #f4f8fb;
     --text-main: #2c3e50;
@@ -21,7 +17,9 @@
     --shadow-soft: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-
+/* ================================
+   GLOBAL
+================================ */
 html, body {
     height: 100%;
     margin: 0;
@@ -31,7 +29,6 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-light);
     color: var(--text-main);
-
     display: flex;
     flex-direction: column;
 }
@@ -41,6 +38,8 @@ main {
     max-width: 1200px;
     margin: 30px auto;
     padding: 0 20px;
+    display: flex; /* columnas */
+    gap: 20px;
 }
 
 /* ================================
@@ -73,7 +72,6 @@ main {
     gap: 8px;
 }
 
-/* NAV */
 .navegador {
     display: flex;
     gap: 30px;
@@ -118,35 +116,73 @@ main {
 }
 
 /* ================================
-   tarjetas de oferta de empleo
+   TARJETAS / COLUMNAS
 ================================ */
-.info-grid {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.info-card {
+.card {
     background: white;
     padding: 25px;
     border-radius: 15px;
     border: 1px solid var(--border-color);
-    flex: 1;
-    text-align: left;
     box-shadow: var(--shadow-soft);
+    flex: 1;
 }
 
+.card h2 {
+    margin-top: 0;
+    font-weight: 700;
+    color: var(--dark-blue);
+}
 
-.salary-range {
-    width: 100%;
-    margin: 15px 0;
-    accent-color: var(--primary-black);
+/* Tarjeta de puesto específica */
+.puesto-card {
+    background: white;
+    padding: 20px 24px;
+    border-radius: 14px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.puesto-card .info p {
+    font-size: 0.9rem;
+    margin: 4px 0;
+    color: var(--gray-text);
 }
 
 /* ================================
-   clase para los botones de devolver
+   LOGIN
+================================ */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-form input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.login-form button {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    background-color: var(--accent-celeste);
+    color: white;
+}
+
+/* ================================
+   BOTONES GENERALES
 ================================ */
 .btn {
     display: inline-block;
@@ -201,39 +237,14 @@ table {
 }
 
 /* ================================
-   TARJETAS DE PUESTO
-================================ */
-.puesto-card {
-    background: white;
-    padding: 20px 24px;
-    border-radius: 14px;
-    border: 1px solid var(--border-color);
-    margin-bottom: 16px;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    box-shadow: var(--shadow-soft);
-}
-
-.puesto-card .info p {
-    margin: 4px 0;
-    font-size: 0.9rem;
-    color: var(--gray-text);
-}
-
-/* ================================
    FOOTER
 ================================ */
 .footer {
     text-align: center;
     padding: 20px 10px;
     margin-top: 40px;
-
     background: var(--soft-gray-bg);
     border-top: 1px solid var(--border-color);
-
     font-size: 0.85rem;
     color: var(--gray-text);
 }
