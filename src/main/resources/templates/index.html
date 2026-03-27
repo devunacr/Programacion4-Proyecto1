@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Bolsa de Empleo</title>
-    <link rel="stylesheet" th:href="@{/}">
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
+
 <body>
 
 <header th:replace="~{fragments/layout :: header}"></header>
@@ -24,11 +25,12 @@
             <p th:text="'Empresa: ' + ${puesto.empresa.nombre}"></p>
             <p th:text="'Salario: ₡' + ${puesto.salario}"></p>
         </div>
-        <a th:href="@{/puesto/{id}(id=${puesto.id})}" class="btn btn-primary">Ver detalle</a>
+        <a th:href="@{/puesto/{id}(id=${puesto.id})}" class="btn">Ver detalle</a>
     </div>
 </main>
 
 <footer th:replace="~{fragments/layout :: footer}"></footer>
 
 </body>
+
 </html>

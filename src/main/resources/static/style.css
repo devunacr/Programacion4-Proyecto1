@@ -1,4 +1,11 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+/**fuente de google para las letras/
+ */
+
+
+/* ================================
+   creacion de varibles  */
 
 :root {
     --bg-light: #f4f8fb;
@@ -6,57 +13,113 @@
     --primary-black: #050a14;
     --dark-blue: #001f3f;
     --accent-celeste: #3b82f6;
+
     --soft-gray-bg: #f8fafc;
+    --gray-text: #64748b;
+    --border-color: #e2e8f0;
+
+    --shadow-soft: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+
+html, body {
+    height: 100%;
+    margin: 0;
 }
 
 body {
     font-family: 'Inter', sans-serif;
-    margin: 0;
     background-color: var(--bg-light);
     color: var(--text-main);
+
+    display: flex;
+    flex-direction: column;
 }
 
-/* ── Header ── */
+main {
+    flex: 1;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* ================================
+   HEADER
+================================ */
 .main-header {
     background: white;
-    padding: 10px 40px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 15px 40px;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.nav-container {
+.nav-contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
-.brand { display: flex; align-items: center; gap: 8px; font-weight: 700; text-decoration: none; color: var(--dark-blue); font-size: 1.1rem; }
-.header-actions { display: flex; gap: 15px; align-items: center; }
-
-/* ── Hero ── */
-.hero { text-align: center; padding: 40px 20px; }
-.hero h1 { font-size: 2.1rem; margin-bottom: 8px; }
-.hero p { font-size: 0.95rem; color: #64748b; margin-top: 0; }
-
-.search-bar-container { display: flex; justify-content: center; margin-bottom: 30px; }
-.search-input {
-    padding: 10px 18px;
-    width: 380px;
-    border: 1px solid #ddd;
-    border-radius: 8px 0 0 8px;
-    outline: none;
-}
-.btn-search {
-    background: var(--primary-black);
-    color: white;
-    padding: 10px 22px;
-    border: none;
-    border-radius: 0 8px 8px 0;
-    font-weight: 600;
-    cursor: pointer;
+.loguito {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--dark-blue);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
+/* NAV */
+.navegador {
+    display: flex;
+    gap: 30px;
+}
+
+.navegador a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 500;
+    font-size: 0.95rem;
+    position: relative;
+    transition: 0.3s;
+}
+
+.navegador a:hover {
+    color: var(--primary-black);
+}
+
+.navegador a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: var(--accent-celeste);
+    left: 0;
+    bottom: -6px;
+    transition: 0.3s;
+}
+
+.navegador a:hover::after {
+    width: 100%;
+}
+
+/* ================================
+   SECCIONES
+================================ */
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--dark-blue);
+    margin: 24px 0 12px;
+}
+
+/* ================================
+   tarjetas de oferta de empleo
+================================ */
 .info-grid {
     display: flex;
     justify-content: center;
@@ -69,336 +132,22 @@ body {
     background: white;
     padding: 25px;
     border-radius: 15px;
-    border: 1px solid #edf2f7;
+    border: 1px solid var(--border-color);
     flex: 1;
     text-align: left;
+    box-shadow: var(--shadow-soft);
 }
 
-/* ── Jobs ── */
-.jobs-section { margin-top: 80px; text-align: center; }
-.jobs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    max-width: 1200px;
-    margin: 30px auto;
-}
-
-.job-card {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    border: 1px solid #e2e8f0;
-    text-align: left;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-}
-
-.skill-tag-index {
-    background: white;
-    color: var(--text-main);
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    border: 1px solid #e2e8f0;
-}
-
-.job-card-wide {
-    background: white;
-    padding: 30px;
-    border-radius: 16px;
-    border: 1px solid #eef2f6;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    text-align: left;
-}
-
-.job-header { display: flex; justify-content: space-between; align-items: flex-start; }
-
-.salary-amount-puestos {
-    color: var(--accent-celeste);
-    font-weight: 800;
-    font-size: 1.4rem;
-}
-
-.skill-tag-puestos {
-    background: var(--soft-gray-bg);
-    color: #475569;
-    padding: 6px 14px;
-    border-radius: 8px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    border: none;
-}
-
-.skills-container { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0; }
-
-.btn-view-all {
-    display: inline-block;
-    margin-top: 40px;
-    padding: 12px 30px;
-    background: white;
-    border: 2px solid var(--primary-black);
-    color: var(--primary-black);
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 600;
-}
-
-/* ── Filter sidebar ── */
-.filter-sidebar {
-    width: 300px;
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    border: 1px solid #eef2f6;
-    height: fit-content;
-}
-
-.filter-group { margin-bottom: 20px; }
-
-.filter-group label {
-    display: block;
-    font-weight: 700;
-    margin-bottom: 10px;
-    font-size: 0.95rem;
-}
-
-.filter-input, .filter-select {
-    width: 100%;
-    padding: 12px;
-    background-color: #f1f5f9;
-    border: none;
-    border-radius: 10px;
-    color: #64748b;
-    font-size: 0.9rem;
-    outline: none;
-}
 
 .salary-range {
     width: 100%;
     margin: 15px 0;
-    accent-color: #050a14;
+    accent-color: var(--primary-black);
 }
 
-.btn-filter-search {
-    width: 100%;
-    background: #050a14;
-    color: white;
-    padding: 14px;
-    border: none;
-    border-radius: 10px;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.btn-filter-clear {
-    width: 100%;
-    background: white;
-    color: #050a14;
-    padding: 12px;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-/* ── Auth tabs ── */
-.auth-tabs {
-    display: flex;
-    justify-content: center;
-    background: #e2e8f0;
-    padding: 5px;
-    border-radius: 30px;
-    margin-bottom: 25px;
-}
-.tab-btn {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 25px;
-    background: transparent;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.3s;
-}
-.tab-btn.active { background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-
-/* ── Header Empresa ── */
-.header-empresa {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 50px;
-    background: white;
-    border-bottom: 1px solid #edf2f7;
-}
-.badge-panel {
-    background: #f1f5f9;
-    padding: 4px 12px;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    color: #64748b;
-}
-
-.btn-close { position: absolute; top: 20px; right: 20px; border: none; background: none; font-size: 1.5rem; cursor: pointer; }
-
-/* ── Botones de estado ── */
-.btn-status {
-    padding: 10px 25px;
-    border-radius: 10px;
-    border: none;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.2s;
-}
-.btn-desactivar { background-color: #be123c; color: white; }
-.btn-desactivar:hover { background-color: #9f1239; }
-.btn-activar { background: var(--primary-black); color: white; }
-
-/* ── Toast ── */
-#toast-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: white;
-    padding: 15px 25px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    display: none;
-    align-items: center;
-    gap: 10px;
-    border-left: 5px solid #10b981;
-}
-
-/* ── Role selector ── */
-.role-selector {
-    display: flex;
-    background: #f1f5f9;
-    padding: 5px;
-    border-radius: 30px;
-    margin: 20px 0;
-    justify-content: space-around;
-}
-.role-selector input[type="radio"] { display: none; }
-.role-selector label {
-    flex: 1;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 25px;
-    font-weight: 600;
-    transition: 0.3s;
-    color: #64748b;
-}
-.role-selector input[type="radio"]:checked + label {
-    background: white;
-    color: #050a14;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-/* ── Role tabs ── */
-.role-tabs {
-    display: flex !important;
-    background-color: #e2e8f0 !important;
-    padding: 5px !important;
-    border-radius: 30px !important;
-    margin-bottom: 25px !important;
-    justify-content: space-around !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-.role-tabs a {
-    flex: 1 !important;
-    padding: 10px 15px !important;
-    text-decoration: none !important;
-    color: #64748b !important;
-    font-weight: 600 !important;
-    border-radius: 25px !important;
-    text-align: center !important;
-    transition: all 0.3s ease !important;
-    display: inline-block !important;
-}
-.role-tabs a.active {
-    background-color: white !important;
-    color: #050a14 !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-}
-
-/* ── Auth / Forms ── */
-.auth-container { display: flex; justify-content: center; align-items: center; padding: 50px 0; }
-.auth-card-wide { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); width: 800px; }
-.grid-form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.full-width { grid-column: span 2; }
-.form-group input, .form-group select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box; }
-.btn-black-full { width: 100%; background: var(--primary-black); color: white; padding: 14px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; margin-top: 10px; }
-
-.error-alert {
-    background-color: #f1f5f9 !important;
-    border: 1px solid #e2e8f0 !important;
-    color: #475569 !important;
-    padding: 12px 16px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.9rem;
-    border-left: 4px solid #64748b !important;
-}
-.error-alert span { color: #64748b !important; font-weight: bold; }
-
-.info-note { background: #fffdf0; border: 1px solid #fef3c7; padding: 15px; border-radius: 10px; margin-top: 20px; color: #92400e; font-size: 0.9rem; text-align: left; }
-
-/* ── Utilidades heredadas (usadas por los HTML existentes) ── */
-main {
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 0 20px;
-}
-
-.section-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--dark-blue);
-    margin: 24px 0 12px;
-}
-
-.form-card {
-    background: white;
-    padding: 32px;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-    max-width: 480px;
-    margin: 40px auto;
-}
-
-.form-group {
-    margin-bottom: 16px;
-}
-.form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 6px;
-    font-size: 0.9rem;
-}
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    box-sizing: border-box;
-    background: #f8fafc;
-}
-.form-group textarea { min-height: 90px; resize: vertical; }
-
-/* Botones genéricos */
+/* ================================
+   clase para los botones de devolver
+================================ */
 .btn {
     display: inline-block;
     padding: 9px 20px;
@@ -410,70 +159,95 @@ main {
     text-decoration: none;
     transition: opacity 0.2s;
 }
-.btn:hover { opacity: 0.85; }
-.btn-primary   { background: var(--primary-black); color: white; }
-.btn-secondary { background: #e2e8f0; color: var(--text-main); }
-.btn-success   { background: #059669; color: white; }
-.btn-danger    { background: #be123c; color: white; }
 
-/* Alertas */
+/* ================================
+   ALERTAS
+================================ */
 .alert {
     padding: 12px 16px;
     border-radius: 8px;
     margin-bottom: 16px;
     font-size: 0.9rem;
 }
-.alert-error   { background: #fef2f2; border-left: 4px solid #ef4444; color: #991b1b; }
-.alert-success { background: #f0fdf4; border-left: 4px solid #22c55e; color: #166534; }
-.alert-info    { background: #eff6ff; border-left: 4px solid #3b82f6; color: #1e40af; }
 
-/* Navegación de dashboard */
-.dash-nav {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    background: white;
-    padding: 12px 20px;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
+.alert-error {
+    background: #fef2f2;
+    border-left: 4px solid #ef4444;
+    color: #991b1b;
 }
-.dash-nav a {
-    text-decoration: none;
-    color: #475569;
-    font-weight: 600;
-    font-size: 0.9rem;
-    padding: 6px 14px;
-    border-radius: 8px;
-    transition: background 0.2s;
-}
-.dash-nav a:hover { background: #f1f5f9; }
 
-/* Tablas */
+.alert-success {
+    background: #f0fdf4;
+    border-left: 4px solid #22c55e;
+    color: #166534;
+}
+
+.alert-info {
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    color: #1e40af;
+}
+
+/* ================================
+   TABLAS
+================================ */
 table {
     width: 100%;
     border-collapse: collapse;
     background: white;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    box-shadow: var(--shadow-soft);
 }
-thead { background: var(--primary-black); color: white; }
-th, td { padding: 12px 16px; text-align: left; font-size: 0.9rem; }
-tbody tr:nth-child(even) { background: #f8fafc; }
-tbody tr:hover { background: #f1f5f9; }
 
-/* Puesto card (index) */
+/* ================================
+   TARJETAS DE PUESTO
+================================ */
 .puesto-card {
     background: white;
     padding: 20px 24px;
     border-radius: 14px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-color);
     margin-bottom: 16px;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+
+    box-shadow: var(--shadow-soft);
 }
-.puesto-card .info p { margin: 4px 0; font-size: 0.9rem; color: #64748b; }
+
+.puesto-card .info p {
+    margin: 4px 0;
+    font-size: 0.9rem;
+    color: var(--gray-text);
+}
+
+/* ================================
+   FOOTER
+================================ */
+.footer {
+    text-align: center;
+    padding: 20px 10px;
+    margin-top: 40px;
+
+    background: var(--soft-gray-bg);
+    border-top: 1px solid var(--border-color);
+
+    font-size: 0.85rem;
+    color: var(--gray-text);
+}
+
+.footer p {
+    margin: 5px 0;
+}
+
+.footer a {
+    color: var(--accent-celeste);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
