@@ -1,0 +1,74 @@
+/* ================================
+   main
+================================ */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* ================================
+   CONTENEDOR LOGIN
+================================ */
+.form-card {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 30px;
+
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+    text-align: center;
+}
+
+/* TÍTULO */
+.form-card h2 {
+    margin-bottom: 20px;
+}
+
+/* FORMULARIO */
+.form-group {
+    text-align: left;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+/* INPUTS (propios del login) */
+.form-group input {
+    width: 100%;
+    padding: 10px;
+
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* BOTÓN LOGIN */
+.btn-login {
+    width: 100%;
+    padding: 10px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: black;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-login:hover {
+    opacity: 0.9;
+}
+
+/* LINK */
+.link-registro {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: #3b82f6;
+    text-decoration: none;
+}
+
+.link-registro:hover {
+    text-decoration: underline;
+}

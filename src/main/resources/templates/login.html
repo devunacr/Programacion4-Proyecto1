@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <title th:text="'Iniciar sesión - ' + ${rol}">Iniciar sesión</title>
 
-    <link rel="stylesheet" th:href="@{/style.css}">
-    <link rel="stylesheet" th:href="@{/loginStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/loginStyle.css}">
 </head>
 <body>
 
 <header th:replace="~{fragments/layout :: header}"></header>
 
 <main>
-
     <!-- Alertas -->
     <div th:replace="~{fragments/layout :: alertas}"></div>
 
@@ -32,7 +31,7 @@
                 <input type="password" name="password" required>
             </div>
 
-            <button type="submit" class="btn-login">Entrar</button>
+            <button type="submit" class="btn btn-login">Entrar</button>
 
             <a th:if="${linkRegistro}"
                th:href="${linkRegistro}"
