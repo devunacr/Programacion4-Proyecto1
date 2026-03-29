@@ -59,14 +59,14 @@
 /* ================================
    BOTÓN
 ================================ */
-.btn-primary {
+.btn-login {
     width: 100%;
     background: var(--primary-black);
     color: white;
     margin-top: 10px;
 }
 
-.btn-primary:hover {
+.btn-login:hover {
     opacity: 0.9;
 }
 
@@ -82,5 +82,17 @@
 }
 
 .form-card a:hover {
+    text-decoration: underline;
+}
+
+.link-registro {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: var(--accent-celeste);
+    text-decoration: none;
+}
+
+.link-registro:hover {
     text-decoration: underline;
 }
