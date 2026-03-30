@@ -51,4 +51,11 @@ public class EmpresaService {
     public List<Empresa> listarTodas() {
         return empresaRepository.findAll();
     }
+
+    public void rechazarEmpresa(Long id) {
+        Empresa empresa = empresaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Empresa no encontrada"));
+
+        empresaRepository.delete(empresa);
+    }
 }

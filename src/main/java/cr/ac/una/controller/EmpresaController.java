@@ -219,4 +219,21 @@ public class EmpresaController {
                         "attachment; filename=\"cv-" + oferenteId + ".pdf\"")
                 .body(oferente.getCv());
     }
+    @PostMapping("/puesto/activar/{id}")
+    public String activarPuesto(@PathVariable Long id,
+                                HttpSession session,
+                                RedirectAttributes ra) {
+
+        if (session.getAttribute("empresaId") == null)
+            return "redirect:/empresa/login";
+
+        try {
+            puestoService.activarPuesto(id);
+            ra.addFlashAttribute("success", "Puesto activado.");
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", e.getMessage());
+        }
+
+        return "redirect:/empresa/dashboard";
+    }
 }

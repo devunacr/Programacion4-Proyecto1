@@ -45,9 +45,16 @@
                 <td th:text="${e.correo}"></td>
                 <td th:text="${e.telefono}"></td>
                 <td>
-                    <form th:action="@{/admin/empresa/aprobar/{id}(id=${e.id})}" method="post" style="display:inline">
+                    <form th:action="@{/admin/empresa/aprobar/{id}(id=${e.id})}"
+                          method="post" style="display:inline">
                         <button type="submit" class="btn btn-success">Aprobar</button>
                     </form>
+
+                    <form th:action="@{/admin/empresa/rechazar/{id}(id=${e.id})}"
+                          method="post" style="display:inline">
+                        <button type="submit" class="btn btn-danger">Rechazar</button>
+                    </form>
+
                 </td>
             </tr>
         </tbody>
