@@ -1,0 +1,47 @@
+/* filtros (lado izquierdo) */
+form {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 15px;
+}
+
+/* separación de checkboxes */
+form div {
+    margin-bottom: 6px;
+}
+
+/* texto de filtros */
+label {
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    margin-right: 6px;
+}
+
+/* botón buscar */
+form .btn {
+    margin-top: 12px;
+}
+
+/* resultados */
+.puesto-card {
+    margin-bottom: 12px;
+}
+
+/* texto dentro de card */
+.puesto-card strong {
+    font-size: 1rem;
+}
+
+.puesto-card p {
+    margin: 4px 0;
+    font-size: 0.9rem;
+}
+
+/* alerta */
+.alert-info {
+    margin-top: 10px;
+}
