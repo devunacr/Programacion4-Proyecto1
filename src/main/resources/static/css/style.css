@@ -50,6 +50,10 @@ main {
    header
 ================================ */
 
+/* ================================
+   header
+================================ */
+
 .main-header {
     background: white;
     margin-bottom: 30px;
@@ -80,19 +84,7 @@ main {
 }
 
 .navegador a {
-    text-decoration: none;
-    color: var(--text-main);
-    font-weight: 500;
-    font-size: 0.95rem;
-}
-
-.navegador {
-    display: flex;
-    gap: 30px;
-}
-
-.navegador a {
-    position: relative; /* 🔥 CLAVE */
+    position: relative;
     text-decoration: none;
     color: var(--text-main);
     font-weight: 500;

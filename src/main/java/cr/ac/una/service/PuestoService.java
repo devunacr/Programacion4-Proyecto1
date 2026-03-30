@@ -137,4 +137,17 @@ public class PuestoService {
     public List<Puesto> listarTodos() {
         return puestoRepository.findAll();
     }
+
+    //****************************
+
+    public void activarPuesto(Long id) {
+        Puesto puesto = puestoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Puesto no encontrado"));
+
+        puesto.setActivo(true);
+        puestoRepository.save(puesto);
+    }
+
+
+
 }

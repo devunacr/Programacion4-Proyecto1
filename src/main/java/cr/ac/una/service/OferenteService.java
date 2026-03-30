@@ -76,4 +76,15 @@ public class OferenteService {
     public List<Oferente> listarTodos() {
         return oferenteRepository.findAll();
     }
+
+    //*********************************
+    public void rechazarOferente(String id) {
+        Oferente oferente = oferenteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Oferente no encontrado"));
+
+        oferenteRepository.delete(oferente);
+    }
+
+
+
 }

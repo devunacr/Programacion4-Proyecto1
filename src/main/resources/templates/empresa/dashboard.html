@@ -54,6 +54,12 @@
                         <button type="submit" class="btn btn-danger">Desactivar</button>
                     </form>
                     <a th:href="@{/empresa/puesto/candidatos/{id}(id=${puesto.id})}" class="btn btn-success">Candidatos</a>
+
+                    <form th:if="${!puesto.activo}"
+                          th:action="@{/empresa/puesto/activar/{id}(id=${puesto.id})}"
+                          method="post" style="display:inline">
+                        <button type="submit" class="btn btn-primary">Activar</button>
+                    </form>
                 </td>
             </tr>
         </tbody>

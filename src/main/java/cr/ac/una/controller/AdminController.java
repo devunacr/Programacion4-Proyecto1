@@ -206,6 +206,34 @@ public class AdminController {
         }
     }
 
+    //*********************************
+
+
+    @PostMapping("/empresa/rechazar/{id}")
+    public String rechazarEmpresa(@PathVariable Long id,
+                                  RedirectAttributes ra) {
+        try {
+            empresaService.rechazarEmpresa(id);
+            ra.addFlashAttribute("success", "Empresa rechazada.");
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:/admin/dashboard";
+    }
+
+
+
+    @PostMapping("/oferente/rechazar/{id}")
+    public String rechazarOferente(@PathVariable String id,
+                                   RedirectAttributes ra) {
+        try {
+            oferenteService.rechazarOferente(id);
+            ra.addFlashAttribute("success", "Oferente rechazado.");
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:/admin/oferentes";
+    }
 
 
 }
