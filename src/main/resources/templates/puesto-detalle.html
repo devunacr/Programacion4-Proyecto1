@@ -37,6 +37,31 @@
                 </tbody>
             </table>
         </div>
+
+        <div style="margin-top:20px">
+
+            <!-- SI ES OFERENTE -->
+            <div th:if="${session.oferenteId != null}">
+                <form th:action="@{/oferente/aplicar}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="puestoId" th:value="${puesto.id}">
+
+                    <label>Subir CV (PDF)</label><br>
+                    <input type="file" name="cv" accept=".pdf" required>
+
+                    <br><br>
+                    <button type="submit" class="btn btn-primary">Aplicar</button>
+                </form>
+            </div>
+
+            <!-- SI NO ESTÁ LOGUEADO COMO OFERENTE -->
+            <div th:if="${session.oferenteId == null}">
+                <p class="alert alert-info">
+                    Debes iniciar sesión como oferente para aplicar.
+                </p>
+            </div>
+
+        </div>
+
     </div>
 </main>
 
