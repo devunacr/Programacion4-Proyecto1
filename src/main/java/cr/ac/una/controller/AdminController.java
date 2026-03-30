@@ -18,6 +18,16 @@ import java.time.YearMonth;
 import java.util.Collections;
 import java.util.List;
 
+
+import java.io.ByteArrayOutputStream;
+
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.PdfWriter;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+
+
+
 @Controller
 @RequestMapping("/admin")
 @RequiredArgsConstructor
@@ -153,4 +163,49 @@ public class AdminController {
         }
         return "admin/reporte";
     }
+
+    @GetMapping("/reporte/pdf")
+    public ResponseEntity<byte[]> descargarPdf(@RequestParam String mes,
+                                               HttpSession session) {
+
+        if (session.getAttribute("adminId") == null) {
+            return ResponseEntity.status(403).build();
+        }
+
+        try {
+            ReporteMensualDTO reporte =
+                    administradorService.generarReporteMensual(YearMonth.parse(mes));
+
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+            Document document = new Document();
+            PdfWriter.getInstance(document, out);
+
+            document.open();
+
+            document.add(new Paragraph("Reporte Mensual: " + mes));
+            document.add(new Paragraph(" "));
+
+            document.add(new Paragraph("Puestos publicados en el mes: " + reporte.getPuestosPublicadosEnElMes()));
+            document.add(new Paragraph("Puestos activos: " + reporte.getPuestosActivos()));
+            document.add(new Paragraph("Total empresas: " + reporte.getTotalEmpresas()));
+            document.add(new Paragraph("Empresas pendientes: " + reporte.getEmpresasPendientesAprobacion()));
+            document.add(new Paragraph("Total oferentes: " + reporte.getTotalOferentes()));
+            document.add(new Paragraph("Oferentes pendientes: " + reporte.getOferentesPendientesAprobacion()));
+
+            document.close();
+
+            return ResponseEntity.ok()
+                    .header("Content-Disposition", "attachment; filename=reporte.pdf")
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(out.toByteArray());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error generando PDF");
+        }
+    }
+
+
+
 }

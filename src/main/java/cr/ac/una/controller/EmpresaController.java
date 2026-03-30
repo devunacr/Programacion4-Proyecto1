@@ -84,7 +84,10 @@ public class EmpresaController {
             Empresa empresa = empresaService.buscarPorCorreo(usuario);
             if (!empresa.getPassword().equals(password)) throw new IllegalArgumentException("Contraseña incorrecta.");
             if (!empresa.getAprobado()) throw new IllegalStateException("Tu cuenta aún no ha sido aprobada.");
+
+            session.removeAttribute("oferenteId");
             session.setAttribute("empresaId", empresa.getId());
+
             return "redirect:/empresa/dashboard";
         } catch (Exception e) {
             ra.addFlashAttribute("error", e.getMessage());

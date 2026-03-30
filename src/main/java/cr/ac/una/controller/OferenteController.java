@@ -165,4 +165,39 @@ public class OferenteController {
         }
         return "redirect:/oferente/dashboard";
     }
+
+    @PostMapping("/aplicar")
+    public String aplicar(@RequestParam Long puestoId,
+                          @RequestParam MultipartFile cv,
+                          HttpSession session,
+                          RedirectAttributes ra) {
+
+        String oferenteId = (String) session.getAttribute("oferenteId");
+        if (oferenteId == null) {
+            ra.addFlashAttribute("error", "Debes iniciar sesión como oferente.");
+            return "redirect:/oferente/login";
+        }
+        try {
+            Oferente oferente = oferenteService.buscarPorId(oferenteId);
+
+            if (oferente == null) {
+                throw new RuntimeException("Oferente no válido.");
+            }
+
+            if (cv == null || cv.isEmpty()) {
+                throw new RuntimeException("Debes subir un CV.");
+            }
+
+            oferente.setCv(cv.getBytes());
+            oferenteService.actualizarOferente(oferente);
+
+            ra.addFlashAttribute("success", "Aplicación enviada correctamente.");
+
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", e.getMessage());
+        }
+
+        return "redirect:/";
+    }
+
 }
