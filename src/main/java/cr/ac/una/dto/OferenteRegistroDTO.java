@@ -17,6 +17,9 @@ public class OferenteRegistroDTO {
     @NotBlank(message = "La nacionalidad es obligatoria.")
     private String nacionalidad;
 
+    @NotBlank(message = "La nacionalidad es obligatoria.")
+    private String telefono;
+
     @NotBlank(message = "El correo es obligatorio.")
     @Email(message = "El correo no tiene un formato válido.")
     private String correopersonal;
