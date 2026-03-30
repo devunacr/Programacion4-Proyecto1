@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Candidatos</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/empresa/candidatoStyle.css}">
 </head>
 <body>
 
@@ -12,8 +13,8 @@
 <main>
     <div th:replace="~{fragments/layout :: alertas}"></div>
 
-    <div class="dash-nav">
-        <a th:href="@{/empresa/dashboard}">← Volver al dashboard</a>
+    <div>
+        <a th:href="@{/empresa/dashboard}" class="btn-atras">Volver</a>
     </div>
 
     <p class="section-title">Candidatos para: <span th:text="${puesto.titulo}"></span></p>
@@ -41,7 +42,7 @@
                 </td>
                 <td th:text="${c.porcentajeCoincidencia + '%'}"></td>
                 <td>
-                    <a th:href="@{/empresa/candidato/{id}(id=${c.oferenteId})}" class="btn">Ver detalle</a>
+                    <a th:href="@{/empresa/candidato/{id}(id=${c.oferenteId})}" class="btn-detalle">Ver detalle</a>
                 </td>
             </tr>
         </tbody>

@@ -13,8 +13,11 @@
     --soft-gray-bg: #f8fafc;
     --gray-text: #64748b;
     --border-color: #e2e8f0;
-
     --shadow-soft: 0 2px 6px rgba(0,0,0,0.05);
+
+    /* solo para los botones de detalle*/
+    --botonDetalle: #7be3ca;
+    --botonDetalleHover: #3b9c86;
 }
 
 /* ================================
@@ -190,6 +193,39 @@ main {
     text-decoration: none;
     background: var(--accent-celeste);
     color: white;
+}
+
+.btn:hover {
+    background: #2563eb;
+}
+
+.btn-detalle {
+    display: inline-block;
+    padding: 7px 16px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    background: var(--botonDetalle);
+    color: white;
+}
+
+.btn-detalle:hover {
+    background: var(--botonDetalleHover);
+}
+
+.btn-atras{
+    display: inline-block;
+    padding: 7px 16px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    background: darkgray;
+    color: white;
+}
+.btn-atras:hover{
+    background: gray;
 }
 
 /* ================================

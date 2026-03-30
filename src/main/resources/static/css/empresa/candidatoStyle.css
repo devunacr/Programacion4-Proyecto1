@@ -1,0 +1,71 @@
+/* ================================
+   título
+================================ */
+
+.section-title {
+    margin: 10px 0 15px 0;
+    font-weight: 600;
+}
+
+/* ================================
+   tabla candidatos
+================================ */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* encabezado */
+thead {
+    background: var(--soft-gray-bg);
+}
+
+th {
+    text-align: left;
+    padding: 12px;
+    font-size: 0.85rem;
+    color: var(--gray-text);
+}
+
+/* filas */
+td {
+    padding: 12px;
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border-color);
+    vertical-align: top;
+}
+
+/* hover */
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* ================================
+   habilidades (texto largo)
+================================ */
+
+td span {
+    font-size: 0.85rem;
+    color: var(--gray-text);
+}
+
+/* ================================
+   porcentaje (resaltado)
+================================ */
+
+td:nth-child(3) {
+    font-weight: 600;
+}
+
+/* ================================
+   alerta
+================================ */
+
+.alert-info {
+    margin-top: 10px;
+}
