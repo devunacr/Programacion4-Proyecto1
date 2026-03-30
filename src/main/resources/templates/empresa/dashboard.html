@@ -9,9 +9,12 @@
 <body>
 
 <header th:replace="~{fragments/layout :: header}"></header>
-<a th:href="@{/empresa/logout}" class="btn btn-secondary" style="float:right">Cerrar sesión</a>
 
 <main>
+    <div class="top-actions">
+        <a th:href="@{/empresa/logout}" class="btn btn-secondary logout-btn">Cerrar sesión</a>
+    </div>
+
     <div th:replace="~{fragments/layout :: alertas}"></div>
 
     <div class="dash-nav">
@@ -46,7 +49,8 @@
                 <td th:text="${puesto.tipoPublicacion}"></td>
                 <td th:text="${puesto.activo} ? 'Sí' : 'No'"></td>
                 <td>
-                    <form th:if="${puesto.activo}" th:action="@{/empresa/puesto/desactivar/{id}(id=${puesto.id})}" method="post" style="display:inline">
+                    <form th:if="${puesto.activo}" th:action="@{/empresa/puesto/desactivar/{id}(id=${puesto.id})}"
+                          method="post" style="display:inline">
                         <button type="submit" class="btn btn-danger">Desactivar</button>
                     </form>
                     <a th:href="@{/empresa/puesto/candidatos/{id}(id=${puesto.id})}" class="btn btn-success">Candidatos</a>
@@ -60,3 +64,4 @@
 
 </body>
 </html>
+
