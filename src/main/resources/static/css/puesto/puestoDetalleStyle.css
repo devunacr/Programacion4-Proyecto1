@@ -1,0 +1,62 @@
+/* contenedor principal */
+main div {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 24px;
+    margin-top: 16px;
+    box-shadow: var(--shadow-soft);
+}
+
+/* título */
+main h2 {
+    margin-bottom: 12px;
+}
+
+/* texto */
+main p {
+    font-size: 0.9rem;
+    margin: 6px 0;
+}
+
+/* tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+thead {
+    background: var(--soft-gray-bg);
+}
+
+th {
+    text-align: left;
+    padding: 10px;
+    font-size: 0.85rem;
+    color: var(--gray-text);
+}
+
+td {
+    padding: 10px;
+    border-top: 1px solid var(--border-color);
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* formulario */
+form {
+    margin-top: 10px;
+}
+
+/* botón */
+.btn {
+    margin-top: 10px;
+}
+
+/* alerta */
+.alert-info {
+    margin-top: 10px;
+}
