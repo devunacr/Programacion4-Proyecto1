@@ -1,0 +1,107 @@
+/* ================================
+   tarjeta del formulario
+================================ */
+
+.form-card {
+    background: white;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-soft);
+}
+
+/* título */
+.form-card h2 {
+    margin-bottom: 15px;
+}
+
+/* ================================
+   grupos de formulario
+================================ */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+/* inputs, select y textarea */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 8px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: 0.2s;
+}
+
+/* focus bonito */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #3b82f6;
+}
+
+/* textarea tamaño */
+.form-group textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* ================================
+   tabla de habilidades
+================================ */
+
+.form-group table {
+    border-collapse: collapse;
+    margin-top: 5px;
+}
+
+.form-group th {
+    text-align: left;
+    font-size: 0.85rem;
+    padding: 6px;
+    color: var(--gray-text);
+}
+
+.form-group td {
+    padding: 6px;
+}
+
+/* ================================
+   botones
+================================ */
+
+.btn-primary {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-primary:hover {
+    background: #2563eb;
+}
+
+/* cancelar */
+.form-card a {
+    font-size: 0.9rem;
+    color: var(--gray-text);
+    text-decoration: none;
+}
+
+.form-card a:hover {
+    text-decoration: underline;
+}
