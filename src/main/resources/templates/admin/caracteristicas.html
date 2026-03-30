@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Características</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main>
+    <div th:replace="~{fragments/layout :: alertas}"></div>
+
+    <div class="dash-nav">
+        <a th:href="@{/admin/dashboard}">Empresas pendientes</a>
+        <a th:href="@{/admin/oferentes}">Oferentes pendientes</a>
+        <a th:href="@{/admin/caracteristicas}">Características</a>
+        <a th:href="@{/admin/reporte}">Reportes</a>
+        <a th:href="@{/admin/logout}" class="btn btn-secondary" style="float:right">Cerrar sesión</a>
+    </div>
+
+    <p class="section-title">Nueva Característica</p>
+    <form th:action="@{/admin/caracteristicas/nueva}" method="post" style="max-width:420px">
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" name="nombre" required>
+        </div>
+        <div class="form-group">
+            <label>Categoría padre (opcional)</label>
+            <select name="padreId">
+                <option value="">-- Sin padre (categoría raíz) --</option>
+                <option th:each="c : ${raices}" th:value="${c.id}" th:text="${c.nombre}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar</button>
+    </form>
+
+    <p class="section-title">Árbol de Características</p>
+
+    <div th:if="${#lists.isEmpty(raices)}">
+        <p class="alert alert-info">No hay características registradas aún.</p>
+    </div>
+
+    <table th:if="${!#lists.isEmpty(raices)}">
+        <thead>
+            <tr>
+                <th>Categoría</th>
+                <th>Subcategorías</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="raiz : ${raices}">
+                <td><strong th:text="${raiz.nombre}"></strong></td>
+                <td>
+                    <span th:if="${#lists.isEmpty(raiz.subcaracteristicas)}" style="color:#888">—</span>
+                    <span th:each="sub, iter : ${raiz.subcaracteristicas}">
+                        <span th:text="${sub.nombre}"></span><span th:if="${!iter.last}">, </span>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

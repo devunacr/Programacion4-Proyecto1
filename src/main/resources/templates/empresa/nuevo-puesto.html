@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Publicar Puesto</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main>
+    <div th:replace="~{fragments/layout :: alertas}"></div>
+
+    <div class="form-card" style="max-width:560px">
+        <h2>Publicar Puesto</h2>
+        <form th:action="@{/empresa/puesto/publicar}" method="post" th:object="${puestoDTO}">
+            <div class="form-group">
+                <label>Título</label>
+                <input type="text" th:field="*{titulo}" required>
+                <span th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" style="color:red;font-size:0.85rem"></span>
+            </div>
+            <div class="form-group">
+                <label>Descripción</label>
+                <textarea th:field="*{descripcion}" required></textarea>
+                <span th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}" style="color:red;font-size:0.85rem"></span>
+            </div>
+            <div class="form-group">
+                <label>Salario (₡)</label>
+                <input type="number" step="0.01" th:field="*{salario}" required>
+                <span th:if="${#fields.hasErrors('salario')}" th:errors="*{salario}" style="color:red;font-size:0.85rem"></span>
+            </div>
+            <div class="form-group">
+                <label>Tipo de publicación</label>
+                <select th:field="*{tipoPublicacion}">
+                    <option value="publico">Público</option>
+                    <option value="privado">Privado</option>
+                </select>
+            </div>
+
+            <div class="form-group" th:if="${puestoDTO.habilidades != null and !puestoDTO.habilidades.isEmpty()}">
+                <label>Habilidades requeridas <small style="font-weight:normal">(nivel 0 = no requerida)</small></label>
+                <table style="width:100%; margin-top:6px">
+                    <thead>
+                        <tr><th>Habilidad</th><th>Nivel mínimo</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="h, i : *{habilidades}">
+                            <td>
+                                <input type="hidden" th:name="'habilidades[' + ${i.index} + '].caracteristicaId'"
+                                       th:value="*{habilidades[__${i.index}__].caracteristicaId}">
+                                <input type="hidden" th:name="'habilidades[' + ${i.index} + '].nombreCaracteristica'"
+                                       th:value="*{habilidades[__${i.index}__].nombreCaracteristica}">
+                                <span th:text="*{habilidades[__${i.index}__].nombreCaracteristica}"></span>
+                            </td>
+                            <td>
+                                <select th:name="'habilidades[' + ${i.index} + '].nivel'">
+                                    <option value="0">0 - No requerida</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Publicar</button>
+            <a th:href="@{/empresa/dashboard}" style="margin-left:12px">Cancelar</a>
+        </form>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

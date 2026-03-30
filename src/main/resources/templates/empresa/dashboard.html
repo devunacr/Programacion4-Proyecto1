@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Empresa</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main>
+    <div th:replace="~{fragments/layout :: alertas}"></div>
+
+    <div class="dash-nav">
+        <a th:href="@{/empresa/dashboard}">Mis puestos</a>
+        <a th:href="@{/empresa/puesto/nuevo}">Publicar puesto</a>
+        <a th:href="@{/empresa/logout}" class="btn btn-secondary" style="float:right">Cerrar sesión</a>
+    </div>
+
+    <p class="section-title">Bienvenida, <span th:text="${empresa.nombre}"></span></p>
+
+    <p class="section-title">Mis Puestos</p>
+
+    <div th:if="${#lists.isEmpty(puestos)}">
+        <p class="alert alert-info">No has publicado puestos aún. <a th:href="@{/empresa/puesto/nuevo}">Publicar ahora</a></p>
+    </div>
+
+    <table th:if="${!#lists.isEmpty(puestos)}">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Salario</th>
+                <th>Tipo</th>
+                <th>Activo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="puesto : ${puestos}">
+                <td th:text="${puesto.id}"></td>
+                <td th:text="${puesto.titulo}"></td>
+                <td th:text="'₡' + ${puesto.salario}"></td>
+                <td th:text="${puesto.tipoPublicacion}"></td>
+                <td th:text="${puesto.activo} ? 'Sí' : 'No'"></td>
+                <td>
+                    <form th:if="${puesto.activo}" th:action="@{/empresa/puesto/desactivar/{id}(id=${puesto.id})}" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-danger">Desactivar</button>
+                    </form>
+                    <a th:href="@{/empresa/puesto/candidatos/{id}(id=${puesto.id})}" class="btn btn-success">Candidatos</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

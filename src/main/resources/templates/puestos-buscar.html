@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Puestos - Bolsa de Empleo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main>
+    <div class="columna">
+        <p class="section-title">Buscar puestos por características</p>
+
+        <form th:action="@{/puestos/buscar-por-caracteristicas}" method="get">
+            <div th:each="c : ${todasCaracteristicas}" style="margin-bottom:6px">
+                <label>
+                    <input type="checkbox" name="caracteristicas" th:value="${c.id}"
+                           th:checked="${seleccionadas.contains(c.id)}">
+                    <span th:text="${c.nombre}"></span>
+                </label>
+            </div>
+            <button type="submit" class="btn" style="margin-top:12px">Buscar</button>
+        </form>
+    </div>
+
+    <div class="columna">
+        <p class="section-title">Resultados</p>
+
+        <div th:if="${#lists.isEmpty(resultados)}">
+            <div class="alert alert-info">No se encontraron puestos para las características seleccionadas.</div>
+        </div>
+
+        <div th:each="puesto : ${resultados}" class="puesto-card">
+            <div class="info">
+                <strong th:text="${puesto.titulo}"></strong>
+                <p th:text="${puesto.descripcion}"></p>
+                <p th:text="'Salario: ₡' + ${puesto.salario}"></p>
+            </div>
+            <a th:href="@{/puesto/{id}(id=${puesto.id})}" class="btn">Ver detalle</a>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

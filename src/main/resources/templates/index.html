@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bolsa de Empleo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main>
+    <!-- Ofertas -->
+    <div class="columna">
+        <p class="section-title">Últimas ofertas de empleo</p>
+
+        <div th:if="${#lists.isEmpty(puestos)}">
+            <div class="alert alert-info">No hay puestos publicados aún.</div>
+        </div>
+
+        <div th:each="puesto : ${puestos}" class="puesto-card">
+            <div class="info">
+                <strong th:text="${puesto.titulo}"></strong>
+                <p th:text="'Empresa: ' + ${puesto.empresa.nombre}"></p>
+                <p th:text="'Salario: ₡' + ${puesto.salario}"></p>
+            </div>
+            <a th:href="@{/puesto/{id}(id=${puesto.id})}" class="btn">Detalles</a>
+        </div>
+    </div>
+
+    <!-- cosas adicionales -->
+    <div class="columna card">
+        <h2>Información</h2>
+        <p>En nuestra plataforma de Bolsa de Empleo, conectamos talento con oportunidades reales.
+            Aquí podrás explorar ofertas laborales actualizadas, mejorar tu perfil profesional y
+            acceder a recursos que te ayudarán a destacar en el mercado laboral.
+            Nuestro objetivo es facilitar el proceso de búsqueda de empleo tanto para oferentes como para empresas,
+            brindando un espacio confiable, ágil y accesible para todos.
+        </p>
+
+        <!-- info de video -->
+        <div class="video">
+            <h3>Cómo mejorar tu CV</h3>
+            <iframe
+                    width="100%"
+                    height="250"
+                    src="https://www.youtube.com/embed/BBGvr83hySg"
+                    title="YouTube video player"
+                    allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- PUBLICIDAD -->
+        <div class="publicidad">
+            <h3>Publicidad</h3>
+            <a href="#">
+                <img src="/imagenes/job.jpg" alt="Publicidad">
+            </a>
+        </div>
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

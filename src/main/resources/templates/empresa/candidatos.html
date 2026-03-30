@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Candidatos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main>
+    <div th:replace="~{fragments/layout :: alertas}"></div>
+
+    <div class="dash-nav">
+        <a th:href="@{/empresa/dashboard}">← Volver al dashboard</a>
+    </div>
+
+    <p class="section-title">Candidatos para: <span th:text="${puesto.titulo}"></span></p>
+
+    <div th:if="${#lists.isEmpty(candidatos)}">
+        <p class="alert alert-info">No se encontraron candidatos que coincidan con las habilidades requeridas.</p>
+    </div>
+
+    <table th:if="${!#lists.isEmpty(candidatos)}">
+        <thead>
+            <tr>
+                <th>Oferente</th>
+                <th>Requisitos cumplidos</th>
+                <th>% Coincidencia</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="c : ${candidatos}">
+                <td th:text="${c.nombre + ' ' + c.apellidos}"></td>
+                <td>
+                    <span th:each="h, iter : ${c.habilidades}">
+                        <span th:text="${h.nombreCaracteristica + ' (niv.' + h.nivel + ')' + (!iter.last ? ', ' : '')}"></span>
+                    </span>
+                </td>
+                <td th:text="${c.porcentajeCoincidencia + '%'}"></td>
+                <td>
+                    <a th:href="@{/empresa/candidato/{id}(id=${c.oferenteId})}" class="btn">Ver detalle</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

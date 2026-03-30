@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Administrador</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main>
+    <div th:replace="~{fragments/layout :: alertas}"></div>
+
+    <div class="dash-nav">
+        <a th:href="@{/admin/dashboard}">Empresas pendientes</a>
+        <a th:href="@{/admin/oferentes}">Oferentes pendientes</a>
+        <a th:href="@{/admin/caracteristicas}">Características</a>
+        <a th:href="@{/admin/reporte}">Reportes</a>
+        <a th:href="@{/admin/logout}" class="btn btn-secondary" style="float:right">Cerrar sesión</a>
+    </div>
+
+
+
+    <p class="section-title">Empresas pendientes de aprobación</p>
+
+    <div th:if="${#lists.isEmpty(empresasPendientes)}">
+        <p class="alert alert-success">No hay empresas pendientes.</p>
+    </div>
+
+    <table th:if="${!#lists.isEmpty(empresasPendientes)}">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="e : ${empresasPendientes}">
+                <td th:text="${e.id}"></td>
+                <td th:text="${e.nombre}"></td>
+                <td th:text="${e.correo}"></td>
+                <td th:text="${e.telefono}"></td>
+                <td>
+                    <form th:action="@{/admin/empresa/aprobar/{id}(id=${e.id})}" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-success">Aprobar</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>
