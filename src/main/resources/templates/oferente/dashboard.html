@@ -4,76 +4,81 @@
     <meta charset="UTF-8">
     <title>Dashboard Oferente</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard/dashOferenteStyle.css}">
 </head>
 <body>
 
 <header th:replace="~{fragments/layout :: header}"></header>
 
 <main>
-    <div th:replace="~{fragments/layout :: alertas}"></div>
+    <div class="dash-oferente">
+        <a th:href="@{/oferente/logout}" class="btn logout-btn left">Cerrar sesión</a>
 
-    <div class="dash-nav">
-        <a th:href="@{/oferente/dashboard}">Mis habilidades</a>
-        <a th:href="@{/oferente/cv}">Mi CV</a>
-        <a th:href="@{/oferente/logout}" class="btn btn-secondary" style="float:right">Cerrar sesión</a>
-    </div>
 
-    <p class="section-title">Bienvenido/a, <span th:text="${oferente.nombre + ' ' + oferente.apellidos}"></span></p>
+        <div th:replace="~{fragments/layout :: alertas}"></div>
 
-    <p class="section-title">Mis Habilidades</p>
+        <div class="dash-nav">
+            <a th:href="@{/oferente/dashboard}">Mis habilidades</a>
+            <a th:href="@{/oferente/cv}">Mi CV</a>
+        </div>
 
-    <div th:if="${#lists.isEmpty(oferente.habilidades)}">
-        <p class="alert alert-info">No tienes habilidades registradas aún.</p>
-    </div>
+        <p class="section-title">Bienvenido/a, <span th:text="${oferente.nombre + ' ' + oferente.apellidos}"></span></p>
+        <p class="section-title">Mis Habilidades</p>
 
-    <table th:if="${!#lists.isEmpty(oferente.habilidades)}">
-        <thead>
+        <div th:if="${#lists.isEmpty(oferente.habilidades)}">
+            <p class="alert alert-info">No tienes habilidades registradas aún.</p>
+        </div>
+
+        <table th:if="${!#lists.isEmpty(oferente.habilidades)}">
+            <thead>
             <tr>
                 <th>Habilidad</th>
                 <th>Nivel (1-5)</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             <tr th:each="h : ${oferente.habilidades}">
                 <td th:text="${h.caracteristica.nombre}"></td>
                 <td th:text="${h.nivel}"></td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    <p class="section-title">Agregar Habilidad</p>
-    <form th:action="@{/oferente/habilidad/agregar}" method="post" style="max-width:400px">
-        <div class="form-group">
-            <label>Característica</label>
-            <select name="caracteristicaId" required>
-                <option value="">-- Seleccionar --</option>
-                <option th:each="c : ${caracteristicas}" th:value="${c.id}" th:text="${c.nombre}"></option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Nivel</label>
-            <select name="nivel" required>
-                <option value="1">1 - Básico</option>
-                <option value="2">2 - Elemental</option>
-                <option value="3">3 - Intermedio</option>
-                <option value="4">4 - Avanzado</option>
-                <option value="5">5 - Experto</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-login">Agregar</button>
-    </form>
+        <p class="section-title">Agregar Habilidad</p>
+        <form th:action="@{/oferente/habilidad/agregar}" method="post" style="max-width:400px">
+            <div class="form-group">
+                <label>Característica</label>
+                <select name="caracteristicaId" required>
+                    <option value="">-- Seleccionar --</option>
+                    <option th:each="c : ${caracteristicas}" th:value="${c.id}" th:text="${c.nombre}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Nivel</label>
+                <select name="nivel" required>
+                    <option value="1">1 - Básico</option>
+                    <option value="2">2 - Elemental</option>
+                    <option value="3">3 - Intermedio</option>
+                    <option value="4">4 - Avanzado</option>
+                    <option value="5">5 - Experto</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-login">Agregar</button>
+        </form>
 
-    <p class="section-title">Curriculum Vitae</p>
-    <p th:if="${oferente.cv != null}" class="alert alert-success">CV cargado. Puedes reemplazarlo subiendo uno nuevo.</p>
-    <p th:if="${oferente.cv == null}" class="alert alert-info">No has subido tu CV aún.</p>
+        <p class="section-title">Curriculum Vitae</p>
+        <p th:if="${oferente.cv != null}" class="alert alert-success">CV cargado. Puedes reemplazarlo subiendo uno
+            nuevo.</p>
+        <p th:if="${oferente.cv == null}" class="alert alert-info">No has subido tu CV aún.</p>
 
-    <form th:action="@{/oferente/cv/subir}" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label>Seleccionar archivo PDF</label>
-            <input type="file" name="cv" accept=".pdf" required>
-        </div>
-        <button type="submit" class="btn btn-login">Subir CV</button>
-    </form>
+        <form th:action="@{/oferente/cv/subir}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Seleccionar archivo PDF</label>
+                <input type="file" name="cv" accept=".pdf" required>
+            </div>
+            <button type="submit" class="btn btn-login">Subir CV</button>
+        </form>
+    </div>
 </main>
 
 <footer th:replace="~{fragments/layout :: footer}"></footer>
