@@ -51,7 +51,7 @@ main {
     border: none;
     border-radius: 8px;
 
-    background: black;
+    background: var(--accent-celeste);
     color: white;
     cursor: pointer;
 }

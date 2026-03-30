@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Registro de Empresa</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/registroStyle.css}">
 </head>
 <body>
 
@@ -43,7 +44,7 @@
                 <input type="password" th:field="*{password}" required>
                 <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red;font-size:0.85rem"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Registrar</button>
+            <button type="submit" class="btn btn-registro">Registrar</button>
             <a th:href="@{/empresa/login}" style="margin-left:12px">¿Ya tienes cuenta? Entrar</a>
         </form>
     </div>

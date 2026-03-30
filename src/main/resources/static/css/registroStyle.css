@@ -1,0 +1,102 @@
+/* ================================
+   contenedor del formulario
+================================ */
+
+.form-card {
+    max-width: 500px;
+    width: 200%;
+    margin: 40px auto;
+    padding: 25px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-soft);
+}
+
+/* ================================
+   título
+================================ */
+
+.form-card h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--dark-blue);
+}
+
+/* ================================
+   grupos de inputs
+================================ */
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+    border-radius: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: var(--gray-text);
+}
+
+/* ================================
+   inputs
+================================ */
+
+.form-group input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+/* efecto al seleccionar */
+.form-group input:focus {
+    border-color: var(--accent-celeste);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59,130,246,0.15);
+}
+
+/* ================================
+   errores
+================================ */
+
+.form-group span {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.8rem;
+    color: #dc2626;
+}
+
+/* ================================
+   botón
+================================ */
+
+.btn-registro {
+    margin-top: 12px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.btn-registro:hover {
+    background: #2563eb;
+}
+
+/* ================================
+   link inferior
+================================ */
+
+.form-card a {
+    margin-left: 12px;
+    font-size: 0.85rem;
+    color: var(--accent-celeste);
+    text-decoration: none;
+}
+
+.form-card a:hover {
+    text-decoration: underline;
+}

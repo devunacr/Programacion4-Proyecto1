@@ -10,7 +10,6 @@
     --primary-black: #050a14;
     --dark-blue: #001f3f;
     --accent-celeste: #3b82f6;
-
     --soft-gray-bg: #f8fafc;
     --gray-text: #64748b;
     --border-color: #e2e8f0;
@@ -124,6 +123,7 @@ main {
 
 .columna {
     flex: 1;
+    margin-top: 20px;
 }
 
 /* ================================
