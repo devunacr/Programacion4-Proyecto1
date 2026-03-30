@@ -1,0 +1,84 @@
+/* ================================
+   navegación del dashboard
+================================ */
+
+.dash-nav {
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.dash-nav a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+
+/* botón cerrar sesión alineado a la derecha */
+.dash-nav a[style*="float:right"] {
+    margin-left: auto;
+}
+
+/* ================================
+   títulos
+================================ */
+
+.section-title {
+    margin: 15px 0 10px 0;
+}
+
+/* ================================
+   tabla
+================================ */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+}
+
+/* encabezado */
+thead {
+    background: var(--soft-gray-bg);
+}
+
+th {
+    text-align: left;
+    padding: 10px;
+    font-size: 0.85rem;
+    color: var(--gray-text);
+}
+
+/* filas */
+td {
+    padding: 10px;
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* hover filas */
+tbody tr:hover {
+    background: #f1f5f9;
+}
+
+/* ================================
+   acciones (botones dentro de tabla)
+================================ */
+
+td .btn {
+    margin-right: 5px;
+}
+
+/* ================================
+   alerta cuando no hay datos
+================================ */
+
+.alert-info {
+    margin-top: 10px;
+}

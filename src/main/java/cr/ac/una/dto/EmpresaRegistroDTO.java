@@ -11,6 +11,9 @@ public class EmpresaRegistroDTO {
     @NotBlank(message = "El nombre es obligatorio.")
     private String nombre;
 
+    @NotBlank(message = "La dirección es obligatoria")
+    private String direccion;
+
     @NotBlank(message = "El correo es obligatorio.")
     @Email(message = "El correo no tiene un formato válido.")
     private String correo;

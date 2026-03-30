@@ -49,6 +49,7 @@ main {
 
 .main-header {
     background: white;
+    margin-bottom: 30px;
     padding: 15px 40px;
     border-bottom: 1px solid var(--border-color);
     position: sticky;

@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <title>Dashboard Empresa</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard/dashEmpresaStyle.css}">
 </head>
 <body>
 
 <header th:replace="~{fragments/layout :: header}"></header>
+<a th:href="@{/empresa/logout}" class="btn btn-secondary" style="float:right">Cerrar sesión</a>
 
 <main>
     <div th:replace="~{fragments/layout :: alertas}"></div>
@@ -15,7 +17,6 @@
     <div class="dash-nav">
         <a th:href="@{/empresa/dashboard}">Mis puestos</a>
         <a th:href="@{/empresa/puesto/nuevo}">Publicar puesto</a>
-        <a th:href="@{/empresa/logout}" class="btn btn-secondary" style="float:right">Cerrar sesión</a>
     </div>
 
     <p class="section-title">Bienvenida, <span th:text="${empresa.nombre}"></span></p>
